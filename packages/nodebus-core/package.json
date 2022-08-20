@@ -2,8 +2,8 @@
   "name": "@nodebus/core",
   "version": "0.0.1",
   "description": "Core Impl for nodebus",
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "lib/index.cjs",
+  "module": "lib/index.mjs",
   "author": "Muhammad Arslan <arslan@carbonteq.com>",
   "license": "MIT",
   "private": true,
@@ -14,6 +14,7 @@
     "test": "jest",
     "tc": "tsc --pretty --noEmit",
     "build": "rollup -c rollup.config.ts --configPlugin swc3",
+    "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
     "dev": "rollup -c rollup.config.ts -w --configPlugin swc3"
   },
   "devDependencies": {
