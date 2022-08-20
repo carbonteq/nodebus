@@ -3,7 +3,7 @@
   "**/*/{src,tests}/**/*.ts": [
     "zx lintstaged.mjs"
   ],
-  "*.json|md": [
+  "*.(json|md)": [
     "prettier --write"
   ]
 }
