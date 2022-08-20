@@ -1,0 +1,35 @@
+{
+  "name": "@nodebus/core",
+  "version": "0.0.1",
+  "description": "Core Impl for nodebus",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "author": "Muhammad Arslan <arslan@carbonteq.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint \"{src,tests}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "test": "jest",
+    "tc": "tsc --pretty --noEmit",
+    "build": "rollup -c rollup.config.ts --configPlugin swc3",
+    "dev": "rollup -c rollup.config.ts -w --configPlugin swc3"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.241",
+    "@swc/jest": "^0.2.22",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.8",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^28.1.3",
+    "prettier": "^2.7.1",
+    "rollup": "^2.78.1",
+    "rollup-plugin-swc3": "^0.3.0",
+    "tsconfig": "*",
+    "typescript": "^4.7.4"
+  }
+}

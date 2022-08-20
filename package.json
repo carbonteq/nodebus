@@ -1,5 +1,5 @@
 {
-  "name": "ct-bus",
+  "name": "nodebus",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -7,15 +7,22 @@
     "packages/*"
   ],
   "scripts": {
+    "prepare": "husky install",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "tc": "turbo run tc",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint-config-custom": "*",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "zx": "^7.0.8"
   },
   "engines": {
     "npm": ">=7.0.0",

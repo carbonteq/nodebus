@@ -1,0 +1,8 @@
+{
+  "**/*/{src,tests}/**/*.ts": [
+    "zx lintstaged.mjs"
+  ],
+  "*.json|md": [
+    "prettier --write"
+  ]
+}

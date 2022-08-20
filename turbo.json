@@ -8,8 +8,20 @@
     "lint": {
       "outputs": []
     },
+    "lint:fix": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts"],
+      "outputs": []
+    },
     "dev": {
       "cache": false
+    },
+    "test": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts"],
+      "cache": false
+    },
+    "tc": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts"]
     }
   }
 }
