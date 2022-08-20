@@ -13,7 +13,7 @@ const config: RollupOptions =
         plugins: [
             swc(
                 defineRollupSwcOption({
-                    minify: false,
+                    minify: true,
                     sourceMaps: true,
                 }),
             ),

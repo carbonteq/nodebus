@@ -1,4 +1,5 @@
 {
+ "$schema": "https://json.schemastore.org/lintstagedrc.schema.json",
   "**/*/{src,tests}/**/*.ts": [
     "zx lintstaged.mjs"
   ],
