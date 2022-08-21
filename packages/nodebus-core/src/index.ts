@@ -1,1 +1,1 @@
-export const add = (left: number, right: number) => left + right
+export const add = (left: number, right: number) => left + right;
