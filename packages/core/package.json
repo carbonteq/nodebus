@@ -35,7 +35,7 @@
     "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "test": "jest --verbose",
-    "tc": "tsc --pretty --noEmit",
+    "tc": "tsc --pretty --noEmit --project tsconfig.build.json",
     "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.ts --configPlugin swc3",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
