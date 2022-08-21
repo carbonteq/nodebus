@@ -1,35 +1,36 @@
 // TODO: add docs
 export type ClassConstructor<T> = new (...args: unknown[]) => T;
 
-export interface Message {
+export interface IMessage {
   readonly name: string;
   readonly time: Date;
   readonly id: string;
 }
 
-export type Command = Message
-export type Event = Message
+export type ICommand = IMessage;
+export type IEvent = IMessage;
 
-export interface ClassHandler<T extends Message> {
+export interface IClassHandler<T extends IMessage> {
   eventType: ClassConstructor<T>;
 
   handle(event: T): void;
 }
 
-export interface HandlerRegistery {
+export interface IHandlerRegistery {
   // FIXME: duplication of eventType
-  register<T extends Message>(
+  register<T extends IMessage>(
     eventType: ClassConstructor<T>,
-    handler: ClassHandler<T>,
+    handler: IClassHandler<T>,
   ): void;
 
-  getAll(): Map<string, Set<ClassHandler<Message>>>;
+  getAll(): Map<string, Set<IClassHandler<IMessage>>>;
 
   reset(): void;
 }
 
 type TSerializable = Record<string, unknown>;
-export interface Serializer {
+
+export interface ISerializer {
   serialize<T extends TSerializable = TSerializable>(obj: T): string;
 
   deserialize<T extends TSerializable = TSerializable>(
@@ -44,10 +45,10 @@ export interface Serializer {
   ): T;
 }
 
-export interface MessageBus {
-  publish(event: Message): Promise<Message>;
+export interface IMessageBus {
+  publish(event: IMessage): Promise<IMessage>;
 
-  subscribe<T extends Message>(handler: ClassHandler<T>): void;
+  subscribe<T extends IMessage>(handler: IClassHandler<T>): void;
 
   start(): void;
 }
