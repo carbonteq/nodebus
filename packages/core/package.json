@@ -2,17 +2,39 @@
   "name": "@nodebus/core",
   "version": "0.0.1",
   "description": "Core Impl for nodebus",
-  "main": "lib/index.cjs",
-  "module": "lib/index.mjs",
   "author": "Muhammad Arslan <arslan@carbonteq.com>",
   "license": "MIT",
   "private": true,
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
+  "exports": {
+    "node": {
+      "require": "./lib/index.js",
+      "import": "./lib/index.mjs",
+      "types": "./lib/index.d.ts"
+    },
+    "default": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "/lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carbonteq/nodebus"
+  },
+  "bugs": {
+    "url": "https://github.com/carbonteq/nodebus/issues"
+  },
+  "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "test": "jest",
     "tc": "tsc --pretty --noEmit",
+    "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.ts --configPlugin swc3",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
     "dev": "rollup -c rollup.config.ts -w --configPlugin swc3"
@@ -28,6 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "jest": "^28.1.3",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "rollup": "^2.78.1",
     "rollup-plugin-swc3": "^0.3.0",
     "tsconfig": "*",

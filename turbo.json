@@ -18,7 +18,8 @@
     "test": {
       "outputs": [],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts"],
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "tc": {
       "inputs": [
