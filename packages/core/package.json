@@ -18,7 +18,9 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/src",
+    "/package.json"
   ],
   "repository": {
     "type": "git",
