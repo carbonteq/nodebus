@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Core Impl for nodebus",
   "author": "Muhammad Arslan <arslan@carbonteq.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "private": true,
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -14,13 +14,11 @@
       "import": "./lib/index.mjs",
       "types": "./lib/index.d.ts"
     },
-    "default": "./lib/index.js",
-    "./package.json": "./package.json"
+    "default": "./lib/index.js"
   },
   "files": [
     "/lib",
-    "/src",
-    "/package.json"
+    "/src"
   ],
   "repository": {
     "type": "git",
