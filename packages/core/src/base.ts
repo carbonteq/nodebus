@@ -23,7 +23,7 @@ export interface IHandlerRegistery {
     handler: IClassHandler<T>,
   ): void;
 
-  getAll(): Map<string, Set<IClassHandler<IMessage>>>;
+  getAll(): ReadonlyMap<string, ReadonlySet<IClassHandler<IMessage>>>;
 
   reset(): void;
 }
