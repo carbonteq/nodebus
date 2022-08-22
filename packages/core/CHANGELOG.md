@@ -1,5 +1,15 @@
 # @nodebus/core
 
+## 0.1.0
+
+### Minor Changes
+
+- cbb004b: Add local bus impl
+
+### Patch Changes
+
+- d22522f: Add default handler registery implementation for nodebus-core
+
 ## 0.0.2
 
 ### Patch Changes
