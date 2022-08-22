@@ -16,14 +16,14 @@ export interface IClassHandler<T extends IMessage> {
   handle(event: T): void;
 }
 
-export interface IHandlerRegistery {
+export interface IHandlerRegistry {
   // FIXME: duplication of eventType
   register<T extends IMessage>(
     eventType: ClassConstructor<T>,
     handler: IClassHandler<T>,
   ): void;
 
-  getAll(): Map<string, Set<IClassHandler<IMessage>>>;
+  getAll(): ReadonlyMap<string, ReadonlySet<IClassHandler<IMessage>>>;
 
   reset(): void;
 }
