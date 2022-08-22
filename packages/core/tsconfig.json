@@ -14,8 +14,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@carbonteq/nodebus-core": ["./lib"],
-      "@src/*": ["./src/*"]
+      "@carbonteq/nodebus-core": ["./lib"]
     }
   },
   "include": ["src/**/*.ts", "tests/**.*.ts", "rollup.config.ts"],
