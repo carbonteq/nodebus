@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
+
   pull_request:
+    branches-ignore:
+      - "changeset-release/*"
+
     types:
       - opened
       - synchronize
@@ -14,6 +18,7 @@ jobs:
     name: Build and Test
     timeout-minutes: 15
     runs-on: ubuntu-22.04
+    if: startsWith(github.head_ref, "changeset-release") == false
 
     steps:
       - name: Checkout code
@@ -25,7 +30,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn
