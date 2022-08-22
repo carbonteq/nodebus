@@ -16,7 +16,7 @@ export interface IClassHandler<T extends IMessage> {
   handle(event: T): void;
 }
 
-export interface IHandlerRegistery {
+export interface IHandlerRegistry {
   // FIXME: duplication of eventType
   register<T extends IMessage>(
     eventType: ClassConstructor<T>,

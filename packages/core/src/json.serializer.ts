@@ -1,4 +1,4 @@
-import { ISerializer, ClassConstructor } from '@src/base';
+import { ISerializer, ClassConstructor } from 'src/base';
 
 export type JsonValue =
   | string

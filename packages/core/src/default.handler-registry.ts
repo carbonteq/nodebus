@@ -1,11 +1,11 @@
 import {
-  IHandlerRegistery,
+  IHandlerRegistry,
   IClassHandler as IMessageHandler,
   IMessage,
   ClassConstructor,
-} from '@src/base';
+} from 'src/base';
 
-export class DefaultHandlerRegistery implements IHandlerRegistery {
+export class DefaultHandlerRegistry implements IHandlerRegistry {
   private listenerMap: Map<string, Set<IMessageHandler<IMessage>>> = new Map();
 
   register<T extends IMessage>(

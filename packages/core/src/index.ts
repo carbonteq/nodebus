@@ -1,3 +1,3 @@
 export * from './base';
 export * from './json.serializer';
-export * from './default.handler-registery';
+export * from './default.handler-registry';
