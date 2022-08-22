@@ -1,4 +1,4 @@
-import { JSONSerializer } from '@nodebus/core';
+import { JSONSerializer } from '@carbonteq/nodebus-core';
 
 describe('serializes a JSON compliant object', () => {
   const serializer = new JSONSerializer();

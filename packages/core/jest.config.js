@@ -14,7 +14,7 @@ const config = {
   },
   transformIgnorePatterns: ['/node_modules/'],
   moduleNameMapper: {
-    '^@nodebus/core(.*)$': '<rootDir>/lib/$1',
+    '^@carbonteq/nodebus-core(.*)$': '<rootDir>/lib/$1',
   },
 };
 

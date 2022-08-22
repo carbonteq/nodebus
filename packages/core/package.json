@@ -1,5 +1,5 @@
 {
-  "name": "@nodebus/core",
+  "name": "@carbonteq/nodebus-core",
   "version": "0.0.2",
   "description": "Core Impl for nodebus",
   "author": "Muhammad Arslan <arslan@carbonteq.com>",
@@ -20,6 +20,7 @@
     "/lib",
     "/src"
   ],
+  "scope": "@carbonteq",
   "repository": {
     "type": "git",
     "url": "https://github.com/carbonteq/nodebus"
@@ -27,6 +28,7 @@
   "bugs": {
     "url": "https://github.com/carbonteq/nodebus/issues"
   },
+  "homepage": "https://github.com/carbonteq/nodebus#readme",
   "sideEffects": false,
   "scripts": {
     "lint": "eslint \"{src,tests}/**/*.ts\"",
