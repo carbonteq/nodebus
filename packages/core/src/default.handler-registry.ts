@@ -16,7 +16,7 @@ export class DefaultHandlerRegistry implements IHandlerRegistry {
     const eventName = event.name;
 
     if (this.listenerMap.has(eventName)) {
-      this.listenerMap.get(eventName)!.add(handler);
+      this.listenerMap.get(eventName)?.add(handler);
     } else {
       this.listenerMap.set(eventName, new Set([handler]));
     }
