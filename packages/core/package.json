@@ -30,6 +30,10 @@
   },
   "homepage": "https://github.com/carbonteq/nodebus#readme",
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
@@ -39,7 +43,8 @@
     "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.ts --configPlugin swc3",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
-    "dev": "rollup -c rollup.config.ts -w --configPlugin swc3"
+    "dev": "rollup -c rollup.config.ts -w --configPlugin swc3",
+    "release": "yarn build && npm publish --access public --registery https://registry.npmjs.org"
   },
   "devDependencies": {
     "@swc/core": "^1.2.241",

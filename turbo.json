@@ -28,6 +28,10 @@
         "tests/**/*.ts",
         "tsconfig.json"
       ]
+    },
+    "release": {
+      "outputs": [],
+      "dependsOn": ["^build", "^test"]
     }
   }
 }
