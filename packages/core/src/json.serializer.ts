@@ -19,7 +19,7 @@ export class JSONSerializer implements ISerializer<JsonObject> {
     val: string,
     classType: ClassConstructor<JsonObject>,
   ): JsonObject {
-    let obj = JSON.parse(val);
+    const obj = JSON.parse(val);
 
     return this.toClass(obj, classType);
   }
