@@ -11,6 +11,15 @@ import {
 /* import { JSONSerializer } from './json.serializer'; */
 import { DefaultHandlerRegistry } from './default.handler-registry';
 
+/* const builder = new BusBuilder() */
+/**/
+/* builder.build() -> LocalBus */
+/**/
+/**/
+/* builder.setDriver(bustype).build() -> bustype */
+/**/
+/* builder.setTransport(redisClient).setSerializer().build() -> redisBusInstanceA */
+
 export class LocalBus implements IMessageBus {
   // warn: unused
   // private readonly serializer: ISerializer<ISerializable>;
@@ -43,6 +52,6 @@ export class LocalBus implements IMessageBus {
   }
 
   subscribe<T extends IMessage>(handler: IClassHandler<T>): void {
-    this.handlerRegistry.register(handler.eventType, handler);
+    this.handlerRegistry.register(handler);
   }
 }

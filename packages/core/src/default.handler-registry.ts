@@ -4,16 +4,14 @@ import {
   IHandlerRegistry,
   IClassHandler as IMessageHandler,
   IMessage,
-  ClassConstructor,
 } from 'src/base';
 
 export class DefaultHandlerRegistry implements IHandlerRegistry {
   private listenerMap: Map<string, Set<IMessageHandler<IMessage>>> = new Map();
 
-  register<T extends IMessage>(
-    eventType: ClassConstructor<T>,
-    handler: IMessageHandler<T>,
-  ): void {
+  register<T extends IMessage>(handler: IMessageHandler<T>): void {
+    const eventType = handler.eventType;
+
     const event = new eventType();
     const eventName = event.name;
 
@@ -25,7 +23,6 @@ export class DefaultHandlerRegistry implements IHandlerRegistry {
   }
 
   getAll(): ReadonlyMap<string, ReadonlySet<IMessageHandler<IMessage>>> {
-    // warn: maybe send a copy instead of the original to prevent mutation
     return this.listenerMap;
   }
 
