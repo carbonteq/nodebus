@@ -1,0 +1,23 @@
+{
+  "name": "eslint-config-nodebus",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "5.33.1",
+    "@typescript-eslint/parser": "5.33.1",
+    "eslint": "8.22.0",
+    "eslint-config-prettier": "8.3.0",
+    "prettier": "2.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
