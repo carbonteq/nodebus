@@ -5,7 +5,9 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "packages/*"
+      "packages/*",
+      "shared/eslint-config-nodebus",
+      "shared/tsconfig"
     ]
   },
   "scripts": {
