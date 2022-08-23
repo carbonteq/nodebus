@@ -1,5 +1,5 @@
 // TODO: add docs
-export type ClassConstructor<T> = new (...args: unknown[]) => T;
+export type ClassConstructor<T> = new (...args: any[]) => T;
 
 export interface IMessage {
   readonly name: string;
