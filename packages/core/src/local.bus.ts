@@ -1,4 +1,5 @@
 import * as events from 'node:events';
+
 import {
   IClassHandler,
   IHandlerRegistry,
@@ -7,8 +8,8 @@ import {
   // ISerializable,
   // ISerializer,
 } from 'src/base';
+/* import { JSONSerializer } from './json.serializer'; */
 import { DefaultHandlerRegistry } from './default.handler-registry';
-// import { JSONSerializer } from './json.serializer';
 
 export class LocalBus implements IMessageBus {
   // warn: unused

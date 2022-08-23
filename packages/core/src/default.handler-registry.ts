@@ -1,3 +1,5 @@
+/* warn: this may case issue as rollup treats absoule paths as internal */
+/* can maybe use https://github.com/dot-build/rollup-plugin-includepaths to remedy this */
 import {
   IHandlerRegistry,
   IClassHandler as IMessageHandler,

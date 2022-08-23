@@ -44,7 +44,7 @@
     "build": "rollup -c rollup.config.ts --configPlugin swc3",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
     "dev": "rollup -c rollup.config.ts -w --configPlugin swc3",
-    "release": "yarn build && npm publish --access public --registery https://registry.npmjs.org"
+    "release": "npm publish --access public --registery https://registry.npmjs.org"
   },
   "devDependencies": {
     "@swc/core": "^1.2.241",
@@ -62,5 +62,10 @@
     "rollup-plugin-swc3": "^0.3.0",
     "tsconfig": "*",
     "typescript": "^4.7.4"
-  }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "packageManager": "yarn@1.22.19"
 }

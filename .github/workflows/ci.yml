@@ -7,7 +7,7 @@ on:
 
   pull_request:
     branches-ignore:
-      - "changeset-release/*"
+      - "changeset-release/main"
 
     types:
       - opened
@@ -18,7 +18,7 @@ jobs:
     name: Build and Test
     timeout-minutes: 15
     runs-on: ubuntu-22.04
-    if: startsWith(github.head_ref, "changeset-release") == false
+    if: ${{ github.ref != 'refs/heads/changeset-release/main' }}
 
     steps:
       - name: Checkout code
