@@ -17,8 +17,7 @@
     "default": "./lib/index.js"
   },
   "files": [
-    "/lib",
-    "/src"
+    "/lib"
   ],
   "scope": "@carbonteq",
   "repository": {
@@ -63,8 +62,5 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "packageManager": "yarn@1.22.19",
-  "dependencies": {
-    "tsconfig": "*"
-  }
+  "packageManager": "yarn@1.22.19"
 }
