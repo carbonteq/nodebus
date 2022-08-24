@@ -3,7 +3,7 @@ import { IMessage } from './message';
 
 export interface TransportMessage<
   DomainMessageType extends IMessage,
-  TransportMessageType,
+  TransportMessageType
 > {
   id: string | undefined;
   domainMessage: DomainMessageType;
@@ -13,7 +13,7 @@ export interface TransportMessage<
 // The message must not only extend IMessage, but should also be serializable by the serializer passed in the initialize step
 export interface ITransport<
   TransportMessageType,
-  DomainMessageType extends IMessage,
+  DomainMessageType extends IMessage
 > {
   initialize(registry: IHandlerRegistry): Promise<void>;
 

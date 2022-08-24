@@ -159,7 +159,7 @@ export class InMemoryTransport<T extends IMessage>
     return this.queue.length;
   }
 
-  toInMemoryTransportMessage(
+  private toInMemoryTransportMessage(
     message: T,
   ): TransportMessage<T, InMemoryMessage<T>> {
     return {
