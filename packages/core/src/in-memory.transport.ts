@@ -3,9 +3,9 @@ import {
   ITransport,
   IMessage,
   IHandlerRegistry,
-  InvalidHandlerRegistry,
   TransportMessage,
 } from './base';
+import { DefaultHandlerRegistry } from './default.handler-registry';
 
 export interface InMemoryTransportConfig {
   maxRetries: number;
@@ -30,8 +30,7 @@ type InMemoryQueue<T extends IMessage> = TransportMessage<
 
 // todo: add logger and retry strat
 export class InMemoryTransport<T extends IMessage>
-  implements ITransport<InMemoryMessage<T>, T>
-{
+  implements ITransport<InMemoryMessage<T>, T> {
   private queue: InMemoryQueue<T> = [];
   private queuePushed: EventEmitter = new EventEmitter();
   /* private _deadLetterQueue: InMemoryQueue = []; */
@@ -39,10 +38,10 @@ export class InMemoryTransport<T extends IMessage>
 
   private handlerRegistery: IHandlerRegistry;
 
-  constructor(private readonly cfg: InMemoryTransportConfig = defaultConfig) {
+  constructor(readonly cfg: InMemoryTransportConfig = defaultConfig) {
     this.messagesWithHandlers = new Set();
 
-    this.handlerRegistery = new InvalidHandlerRegistry();
+    this.handlerRegistery = new DefaultHandlerRegistry();
   }
 
   async initialize(registry: IHandlerRegistry): Promise<void> {
@@ -52,8 +51,8 @@ export class InMemoryTransport<T extends IMessage>
     // adding values to a set in a loop is more expensive than adding them to a list
     // the list can then be used to construct the set, which is usually a cheaper operation
     const availableMessages: string[] = [];
-    this.handlerRegistery.getAll().forEach((s) => {
-      s.forEach((msgName) => availableMessages.push(msgName.eventType.name));
+    this.handlerRegistery.getAll().forEach(s => {
+      s.forEach(msgName => availableMessages.push(msgName.eventType.name));
     });
 
     this.messagesWithHandlers = new Set(availableMessages);
@@ -68,7 +67,7 @@ export class InMemoryTransport<T extends IMessage>
   > {
     console.debug('Reading next message', { len: this.length });
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const onMessageEmitted = () => {
         unsubscribeEmitter();
         clearTimeout(timeoutToken);
@@ -81,7 +80,7 @@ export class InMemoryTransport<T extends IMessage>
       };
 
       const getNextMessage = () => {
-        const availableMsgs = this.queue.filter((m) => !m.raw.inFlight);
+        const availableMsgs = this.queue.filter(m => !m.raw.inFlight);
 
         if (availableMsgs.length === 0) {
           console.debug('No messages available in the queue');
@@ -151,15 +150,16 @@ export class InMemoryTransport<T extends IMessage>
         queueSize: this.length,
         message,
       });
+    } else {
+      console.debug('No handler for ', message.name);
     }
-    // todo: log when message has no handler
   }
 
   get length(): number {
     return this.queue.length;
   }
 
-  private toInMemoryTransportMessage(
+  toInMemoryTransportMessage(
     message: T,
   ): TransportMessage<T, InMemoryMessage<T>> {
     return {
