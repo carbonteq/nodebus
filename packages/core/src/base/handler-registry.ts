@@ -8,3 +8,18 @@ export interface IHandlerRegistry {
 
   reset(): void;
 }
+
+export class InvalidHandlerRegistry implements IHandlerRegistry {
+  constructor() {
+    throw new Error('invalid handler registry');
+  }
+  register(): void {
+    throw new Error('Method not implemented.');
+  }
+  getAll(): never {
+    throw new Error('Method not implemented.');
+  }
+  reset(): never {
+    throw new Error('Method not implemented.');
+  }
+}
