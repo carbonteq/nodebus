@@ -10,28 +10,28 @@ export type JsonValue =
 
 export type JsonObject = { [x: string]: JsonValue };
 
-export class JSONSerializer implements ISerializer<JsonObject> {
-  serialize(obj: JsonObject): string {
+export class JSONSerializer implements ISerializer {
+  serialize<T extends object = JsonObject>(obj: T): string {
     return JSON.stringify(obj);
   }
 
-  deserialize(
+  deserialize<T extends object>(
     val: string,
-    classType: ClassConstructor<JsonObject>,
-  ): JsonObject {
+    classType: ClassConstructor<T>,
+  ): T {
     const obj = JSON.parse(val);
 
     return this.toClass(obj, classType);
   }
 
-  toPlain(obj: JsonObject): object {
+  toPlain<T extends object>(obj: T): object {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  toClass(
+  toClass<T extends object>(
     obj: object,
-    classConstructor: ClassConstructor<JsonObject>,
-  ): JsonObject {
+    classConstructor: ClassConstructor<T>,
+  ): T {
     const instance = new classConstructor();
 
     Object.assign(instance, obj);

@@ -1,15 +1,19 @@
 import { ClassConstructor } from './type-utils';
 
-export type BaseSerializable = Record<string, unknown>;
-export interface ISerializer<T extends BaseSerializable> {
-  serialize(obj: T): string;
-  deserialize(val: string, classType: ClassConstructor<T>): T;
+export type BaseSerializable = Record<string, any>;
 
-  toPlain(obj: T): object;
-  toClass(obj: object, classConstructor: ClassConstructor<T>): T;
+export interface ISerializer {
+  serialize<T extends object>(obj: T): string;
+  deserialize<T extends object>(val: string, classType: ClassConstructor<T>): T;
+
+  toPlain<T extends object>(obj: T): object;
+  toClass<T extends object>(
+    obj: object,
+    classConstructor: ClassConstructor<T>,
+  ): T;
 }
 
-export class InvalidSerializer implements ISerializer<never> {
+export class InvalidSerializer implements ISerializer {
   constructor() {
     throw new Error('invalid serializer');
   }
