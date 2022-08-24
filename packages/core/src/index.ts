@@ -1,4 +1,4 @@
 export * from './base';
 export * from './json.serializer';
 export * from './default.handler-registry';
-export * from './inmemory.transport';
+export * from './in-memory.transport';
