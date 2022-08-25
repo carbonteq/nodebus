@@ -1,5 +1,18 @@
 # @nodebus/core
 
+## 0.2.0
+
+### Minor Changes
+
+- 631322d: Simplify Core API (internal+external)
+
+### Patch Changes
+
+- 612d03c: Fix tests and JsonSerializer types
+- 612d03c: Add initial version of Bus API (and tests)
+- 0ea435b: Internal: Move base interfaces to separate dir
+- 3c3afaa: Add tests for in-memory queue transport
+
 ## 0.1.3
 
 ### Patch Changes
