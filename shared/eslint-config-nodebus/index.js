@@ -29,7 +29,8 @@ module.exports = {
       "error",
       { ignoreRestSiblings: true },
     ],
-    "@typescript-eslint/no-empty-function": 0,
-    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };
