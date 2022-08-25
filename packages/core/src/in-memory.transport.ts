@@ -1,11 +1,5 @@
 import { EventEmitter } from 'node:events';
-import {
-  ITransport,
-  IMessage,
-  IHandlerRegistry,
-  TransportMessage,
-} from './base';
-import { DefaultHandlerRegistry } from './default.handler-registry';
+import { ITransport, TransportMessage } from './base';
 
 export interface InMemoryTransportConfig {
   maxRetries: number;
@@ -17,54 +11,23 @@ const defaultConfig: Readonly<InMemoryTransportConfig> = {
   receiveTimeoutMs: 1000, // 1 second
 };
 
-export interface InMemoryMessage<T extends IMessage> {
-  inFlight: boolean;
-  seenCount: number;
-  payload: T;
-}
-
-type InMemoryQueue<T extends IMessage> = TransportMessage<
-  T,
-  InMemoryMessage<T>
->[];
-
-// todo: add logger and retry strat
-export class InMemoryTransport<T extends IMessage>
-  implements ITransport<InMemoryMessage<T>, T> {
-  private queue: InMemoryQueue<T> = [];
+// todo: add logger, queue and retry strat
+export class InMemoryTransport implements ITransport {
+  private queue: TransportMessage[] = [];
   private queuePushed: EventEmitter = new EventEmitter();
   /* private _deadLetterQueue: InMemoryQueue = []; */
-  private messagesWithHandlers: Set<string>;
 
-  private handlerRegistery: IHandlerRegistry;
+  constructor(readonly cfg: InMemoryTransportConfig = defaultConfig) {}
 
-  constructor(readonly cfg: InMemoryTransportConfig = defaultConfig) {
-    this.messagesWithHandlers = new Set();
-
-    this.handlerRegistery = new DefaultHandlerRegistry();
+  async initialize(): Promise<void> {
+    // connect to underlying transport here
   }
 
-  async initialize(registry: IHandlerRegistry): Promise<void> {
-    this.handlerRegistery = registry;
-
-    // a set is optimized for lookup, not for list operations like push
-    // adding values to a set in a loop is more expensive than adding them to a list
-    // the list can then be used to construct the set, which is usually a cheaper operation
-    const availableMessages: string[] = [];
-    this.handlerRegistery.getAll().forEach(s => {
-      s.forEach(msgName => availableMessages.push(msgName.eventType.name));
-    });
-
-    this.messagesWithHandlers = new Set(availableMessages);
-  }
-
-  async send(message: T): Promise<void> {
+  async send(message: TransportMessage): Promise<void> {
     this.addToQueue(message);
   }
 
-  readNextMessage(): Promise<
-    TransportMessage<T, InMemoryMessage<T>> | undefined
-  > {
+  readNextMessage(): Promise<TransportMessage | undefined> {
     console.debug('Reading next message', { len: this.length });
 
     return new Promise(resolve => {
@@ -80,15 +43,13 @@ export class InMemoryTransport<T extends IMessage>
       };
 
       const getNextMessage = () => {
-        const availableMsgs = this.queue.filter(m => !m.raw.inFlight);
+        // const availableMsgs = this.queue.filter(m => !m.inFlight);
 
-        if (availableMsgs.length === 0) {
+        const message = this.queue.shift();
+        if (message === undefined) {
           console.debug('No messages available in the queue');
           return;
         }
-
-        const message = availableMsgs[0];
-        message.raw.inFlight = true;
 
         return message;
       };
@@ -107,9 +68,7 @@ export class InMemoryTransport<T extends IMessage>
     });
   }
 
-  async deleteMessage(
-    message: TransportMessage<T, InMemoryMessage<T>>,
-  ): Promise<void> {
+  async deleteMessage(message: TransportMessage): Promise<void> {
     const msgIdx = this.queue.indexOf(message);
 
     if (msgIdx < 0) {
@@ -117,59 +76,30 @@ export class InMemoryTransport<T extends IMessage>
       return;
     }
 
-    console.debug('Deleting messge', { len: this.length, msgIdx });
+    console.debug('Deleting message', { len: this.length, msgIdx });
     this.queue.splice(msgIdx, 1);
-    console.debug('Deleted messge', { len: this.length, msgIdx });
+    console.debug('Deleted message', { len: this.length, msgIdx });
   }
 
-  async returnMessage(
-    message: TransportMessage<T, InMemoryMessage<T>>,
-  ): Promise<void> {
+  async returnMessage(message: TransportMessage): Promise<void> {
     // todo: replace with retry strategy
     const delay = 2000; // ms
 
-    message.raw.seenCount++;
-
-    if (message.raw.seenCount >= this.cfg.maxRetries) {
-      console.info('Message retry limit exceeded', { message });
-      // send to dead letter queue?
-    } else {
-      setTimeout(() => {
-        message.raw.inFlight = false;
-      }, delay);
-    }
+    setTimeout(() => {
+      this.queue.push(message);
+    }, delay);
   }
 
-  private addToQueue(message: T) {
-    if (this.messagesWithHandlers.has(message.name)) {
-      /* const transportMessage = this.serializer.serialize(message); */
-      const transportMessage = this.toInMemoryTransportMessage(message);
+  private addToQueue(message: TransportMessage) {
+    this.queue.push(message);
 
-      this.queue.push(transportMessage);
-      console.debug('Added message to the queue', {
-        queueSize: this.length,
-        message,
-      });
-    } else {
-      console.debug('No handler for ', message.name);
-    }
+    console.debug('Added message to the queue', {
+      queueSize: this.length,
+      message,
+    });
   }
 
   get length(): number {
     return this.queue.length;
-  }
-
-  private toInMemoryTransportMessage(
-    message: T,
-  ): TransportMessage<T, InMemoryMessage<T>> {
-    return {
-      id: undefined,
-      domainMessage: message,
-      raw: {
-        payload: message,
-        inFlight: false,
-        seenCount: 0,
-      },
-    };
   }
 }

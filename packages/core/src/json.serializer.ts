@@ -1,4 +1,4 @@
-import { ISerializer, ClassConstructor } from 'src/base';
+import { ISerializer, ClassConstructor, IMessage } from 'src/base';
 
 export type JsonValue =
   | string
@@ -11,11 +11,15 @@ export type JsonValue =
 export type JsonObject = { [x: string]: JsonValue };
 
 export class JSONSerializer implements ISerializer {
-  serialize<T extends object = JsonObject>(obj: T): string {
+  serialize(obj: JsonObject): string {
     return JSON.stringify(obj);
   }
 
-  deserialize<T extends object>(
+  naiveDeserialize(val: string): Record<string, unknown> {
+    return JSON.parse(val) as Record<string, unknown>;
+  }
+
+  deserialize<T extends IMessage>(
     val: string,
     classType: ClassConstructor<T>,
   ): T {
@@ -24,11 +28,11 @@ export class JSONSerializer implements ISerializer {
     return this.toClass(obj, classType);
   }
 
-  toPlain<T extends object>(obj: T): object {
+  toPlain(obj: JsonObject): object {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  toClass<T extends object>(
+  toClass<T extends IMessage>(
     obj: object,
     classConstructor: ClassConstructor<T>,
   ): T {

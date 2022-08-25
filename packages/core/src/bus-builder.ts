@@ -4,32 +4,22 @@ import {
   IMessage,
   ITransport,
   ISerializer,
-  BaseSerializable,
 } from './base';
 import { Bus } from './bus';
 import { DefaultHandlerRegistry } from './default.handler-registry';
 import { InMemoryTransport } from './in-memory.transport';
-import { JsonObject, JSONSerializer } from './json.serializer';
+import { JSONSerializer } from './json.serializer';
 
-interface BuilderOpts<TransportMessageType extends BaseSerializable> {
-  transport?: ITransport<TransportMessageType, IMessage>;
-  registry?: IHandlerRegistry;
-  serializer?: ISerializer;
-}
-
-export class BusBuilder<
-  TransportMessageType extends BaseSerializable = JsonObject
-> {
-  private transport?: ITransport<TransportMessageType, IMessage>;
+export class BusBuilder {
+  private transport?: ITransport;
   private busInstance?: Bus;
 
   private registry: IHandlerRegistry;
   private serializer: ISerializer;
 
-  private constructor(opts?: BuilderOpts<TransportMessageType>) {
-    this.transport = opts?.transport;
-    this.registry = opts?.registry ?? new DefaultHandlerRegistry();
-    this.serializer = opts?.serializer ?? new JSONSerializer();
+  private constructor() {
+    this.registry = new DefaultHandlerRegistry();
+    this.serializer = new JSONSerializer();
   }
 
   static configure(): BusBuilder {
@@ -60,15 +50,12 @@ export class BusBuilder<
     return this;
   }
 
-  withTransport<T>(transport: ITransport<T, IMessage>): BusBuilder<T> {
+  withTransport(transport: ITransport): this {
     this.verifyNotAlreadyInitialized();
 
-    const cfg = this.getOpts();
+    this.transport = transport;
 
-    return new BusBuilder({
-      ...cfg,
-      transport,
-    });
+    return this;
   }
 
   withSerializer(serializer: ISerializer): this {
@@ -81,13 +68,5 @@ export class BusBuilder<
     if (this.busInstance !== undefined) {
       throw new Error('bus already initialized');
     }
-  }
-
-  private getOpts(): BuilderOpts<TransportMessageType> {
-    return {
-      transport: this.transport,
-      serializer: this.serializer,
-      registry: this.registry,
-    };
   }
 }

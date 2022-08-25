@@ -1,36 +1,19 @@
 import { IHandlerRegistry } from './handler-registry';
-import { IMessage } from './message';
 
-export interface TransportMessage<
-  DomainMessageType extends IMessage,
-  TransportMessageType
-> {
-  id: string | undefined;
-  domainMessage: DomainMessageType;
-  raw: TransportMessageType;
-}
+export type TransportMessage = string;
 
 // The message must not only extend IMessage, but should also be serializable by the serializer passed in the initialize step
-export interface ITransport<
-  TransportMessageType,
-  DomainMessageType extends IMessage
-> {
+export interface ITransport {
   initialize(registry: IHandlerRegistry): Promise<void>;
 
-  send(message: DomainMessageType): Promise<void>;
+  send(message: TransportMessage): Promise<void>;
 
-  readNextMessage(): Promise<
-    TransportMessage<DomainMessageType, TransportMessageType> | undefined
-  >;
+  readNextMessage(): Promise<TransportMessage | undefined>;
 
-  deleteMessage(
-    message: TransportMessage<DomainMessageType, TransportMessageType>,
-  ): Promise<void>;
+  deleteMessage(message: TransportMessage): Promise<void>;
 
   /**
    * Return message back to the queue
    */
-  returnMessage(
-    message: TransportMessage<DomainMessageType, TransportMessageType>,
-  ): Promise<void>;
+  returnMessage(message: TransportMessage): Promise<void>;
 }
