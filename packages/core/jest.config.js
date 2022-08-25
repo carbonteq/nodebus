@@ -6,7 +6,7 @@ const config = {
   testEnvironment: 'node',
   notify: false,
   roots: ['src', 'tests'],
-  testRegex: '.*\\.(spec|test)\\.ts',
+  testRegex: '.*\\.(spec|test|integration)\\.ts',
   // testRunner: 'jest-jasmine2',
   testPathIgnorePatterns: ['/node_modules/'],
   transform: {
