@@ -1,17 +1,23 @@
-import { ISerializer, ClassConstructor, IMessage } from 'src/base';
+import {
+  ISerializer,
+  ClassConstructor,
+  IMessage,
+  BaseSerializable,
+} from 'src/base';
 
-export type JsonValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | { [x: string]: JsonValue }
-  | Array<JsonValue>;
+// export type JsonValue =
+//   | string
+//   | number
+//   | boolean
+//   | Date
+//   | { [x: string]: JsonValue }
+//   | Array<JsonValue>;
 
-export type JsonObject = { [x: string]: JsonValue };
+// export type JsonObject = { [x: string]: JsonValue };
+export type JsonObject = BaseSerializable;
 
 export class JSONSerializer implements ISerializer {
-  serialize(obj: JsonObject): string {
+  serialize<T extends JsonObject>(obj: T): string {
     return JSON.stringify(obj);
   }
 
@@ -28,7 +34,7 @@ export class JSONSerializer implements ISerializer {
     return this.toClass(obj, classType);
   }
 
-  toPlain(obj: JsonObject): object {
+  toPlain<T extends JsonObject>(obj: T): object {
     return JSON.parse(JSON.stringify(obj));
   }
 

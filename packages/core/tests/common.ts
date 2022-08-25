@@ -3,6 +3,7 @@ import {
   IEvent,
   ICommand,
   ClassConstructor,
+  IMessage,
 } from '@carbonteq/nodebus-core';
 
 export const sleep = (ms: number) =>
@@ -23,6 +24,25 @@ export class TestEventHandler implements IClassHandler<TestEvent> {
     console.log('Handling TestEvent: ', event);
   }
 }
+
+export const getErronousHandler = <T extends IMessage>(
+  msgType: ClassConstructor<T>,
+) => {
+  return class ErronousHandler implements IClassHandler<T> {
+    eventType = msgType;
+    timesFailed = 0;
+
+    constructor(readonly timesToFail: number) {}
+
+    handle(event: T): void {
+      if (this.timesFailed++ < this.timesToFail) {
+        throw new Error('from bad handler');
+      }
+
+      console.debug('Successful handling by bad handler', event);
+    }
+  };
+};
 
 export class FooEvent implements IEvent {
   name = 'FooEvent';
