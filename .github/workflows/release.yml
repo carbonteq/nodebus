@@ -29,11 +29,7 @@ jobs:
           publish: yarn release
           title: Release
           commit: new release
+          createGithubReleases: true
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push tags to git
-        run: git push --follow-tags
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
