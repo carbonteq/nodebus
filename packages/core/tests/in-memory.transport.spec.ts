@@ -1,25 +1,17 @@
 import {
   InMemoryTransport,
   DefaultHandlerRegistry,
-  JSONSerializer,
 } from '@carbonteq/nodebus-core';
 import {
   TestEvent,
   TestEventHandler,
-  FooEvent,
   BarCommand,
   BarCommandHandler,
 } from './common';
 
-const serializer = new JSONSerializer();
 const evnt = new TestEvent('some id');
-const evntSerialized = serializer.serialize(evnt);
-
-const evntWoHandler = new FooEvent('foo id');
-const evntWoHandlerSerialized = serializer.serialize(evntWoHandler);
 
 const cmd = new BarCommand('bar cmd');
-const cmdSerialized = serializer.serialize(cmd);
 
 const testHandler = new TestEventHandler();
 const cmdHandler = new BarCommandHandler();
@@ -29,12 +21,12 @@ registry.register(testHandler);
 registry.register(cmdHandler);
 
 describe('in-memory transport', () => {
-  let transport: InMemoryTransport<TestEvent>;
+  let transport: InMemoryTransport;
 
   beforeEach(() => {
-    transport = new InMemoryTransport<TestEvent>();
+    transport = new InMemoryTransport();
 
-    transport.initialize(registry);
+    transport.initialize();
   });
 
   it('sending an event with handler adds it to queue', async () => {
