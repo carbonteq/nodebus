@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.3.0
+
+### Minor Changes
+
+- 41b62af: Add logger to bus
+
 ## 0.2.4
 
 ### Patch Changes
