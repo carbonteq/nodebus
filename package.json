@@ -18,7 +18,7 @@
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
     "tc": "turbo run tc",
-    "release": "turbo run build && changeset publish && changeset tag",
+    "release": "turbo run build && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
