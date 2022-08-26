@@ -28,7 +28,7 @@ export class InMemoryTransport implements ITransport {
   }
 
   readNextMessage(): Promise<TransportMessage | undefined> {
-    console.debug('Reading next message', { len: this.length });
+    // console.debug('Reading next message', { len: this.length });
 
     return new Promise(resolve => {
       const onMessageEmitted = () => {
@@ -69,16 +69,19 @@ export class InMemoryTransport implements ITransport {
   }
 
   async deleteMessage(message: TransportMessage): Promise<void> {
-    const msgIdx = this.queue.indexOf(message);
-
-    if (msgIdx < 0) {
-      console.debug('Message already deleted', { message });
-      return;
-    }
-
-    console.debug('Deleting message', { len: this.length, msgIdx });
-    this.queue.splice(msgIdx, 1);
-    console.debug('Deleted message', { len: this.length, msgIdx });
+    console.debug('No need to delete message from in-memory queue', {
+      message,
+    });
+    // const msgIdx = this.queue.indexOf(message);
+    //
+    // if (msgIdx < 0) {
+    //   console.debug('Message already deleted', { message });
+    //   return;
+    // }
+    //
+    // console.debug('Deleting message', { len: this.length, msgIdx });
+    // this.queue.splice(msgIdx, 1);
+    // console.debug('Deleted message', { len: this.length, msgIdx });
   }
 
   async returnMessage(message: TransportMessage): Promise<void> {

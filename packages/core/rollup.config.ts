@@ -13,7 +13,7 @@ const config: RollupOptions =
     plugins: [
       swc(
         defineRollupSwcOption({
-          minify: true,
+          minify: false,
           tsconfig: './tsconfig.build.json',
         }),
       ),

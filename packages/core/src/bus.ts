@@ -49,9 +49,11 @@ export class Bus {
     this.internalState = BusState.Started;
 
     // todo: add concurrency
-    setTimeout(async () => this.applicationLoop(), 0);
 
-    console.info('Bus started with concurrency: 1');
+    // await Promise.all([this.applicationLoop()]); // WARN: Never use this
+    setTimeout(async () => await this.applicationLoop(), 0);
+
+    console.debug('Bus started with concurrency: 1');
   }
 
   async stop(): Promise<void> {
