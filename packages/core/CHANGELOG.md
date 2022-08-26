@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.2.3
+
+### Patch Changes
+
+- d4cd7a1: Add logger interface and pino logger impl
+
 ## 0.2.0
 
 ### Minor Changes
