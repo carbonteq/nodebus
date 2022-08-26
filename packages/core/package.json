@@ -1,6 +1,6 @@
 {
   "name": "@carbonteq/nodebus-core",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Core Impl for nodebus",
   "author": "Muhammad Arslan <arsalan.karamat@carbonteq.com>",
   "license": "MIT",
