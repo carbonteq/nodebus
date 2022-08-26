@@ -23,7 +23,10 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Create Release & Publish Package
+      - name: Build
+        run: yarn build
+
+      - name: Create Release PR or Publish Packages
         uses: changesets/action@v1
         with:
           publish: yarn release
