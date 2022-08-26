@@ -1,6 +1,7 @@
 import {
   IClassHandler,
   IHandlerRegistry,
+  ILogger,
   IMessage,
   ISerializer,
   ITransport,
@@ -30,7 +31,13 @@ export class Bus {
     private readonly transport: ITransport,
     private readonly registry: IHandlerRegistry,
     private readonly serializer: ISerializer,
-  ) {}
+    private readonly logger: ILogger,
+  ) {
+    logger.setContext('Bus');
+
+    const registeredMessages = Array.from(this.registry.getAll().keys());
+    logger.debug('Bus initialized', { registeredMessages });
+  }
 
   async send<T extends IMessage>(msg: T): Promise<void> {
     const serializedMsg = this.serializer.serialize(msg);
@@ -53,7 +60,7 @@ export class Bus {
     // await Promise.all([this.applicationLoop()]); // WARN: Never use this
     setTimeout(async () => await this.applicationLoop(), 0);
 
-    console.debug('Bus started with concurrency: 1');
+    this.logger.debug('Bus started with concurrency: 1');
   }
 
   async stop(): Promise<void> {
@@ -69,13 +76,13 @@ export class Bus {
     }
 
     this.internalState = BusState.Stopped;
-    console.info('Bus Stopped');
+    this.logger.info('Bus Stopped');
   }
 
   private async applicationLoop(): Promise<void> {
     this.runningWorkerCount++;
 
-    console.debug('Started application loop');
+    this.logger.debug('Started application loop');
     while (this.internalState === BusState.Started) {
       const msgHandled = await this.handleNextMessage();
 
@@ -85,7 +92,7 @@ export class Bus {
       }
     }
 
-    console.debug('Stopping application loop');
+    this.logger.debug('Stopping application loop');
     this.runningWorkerCount--;
   }
 
@@ -109,7 +116,7 @@ export class Bus {
     );
 
     const handlerResults = await Promise.allSettled(handlersToInvoke);
-    console.debug('Message dispatched to all handlers', {
+    this.logger.debug('Message dispatched to all handlers', {
       msg,
       numHandlers: handlers.length,
     });
@@ -119,7 +126,7 @@ export class Bus {
     if (failed.length > 0) {
       const reasons = (failed as PromiseRejectedResult[]).map(h => h.reason);
 
-      console.error('Some handlers failed to run', { msg, reasons });
+      this.logger.error('Some handlers failed to run', { msg, reasons });
     }
   }
 
@@ -133,13 +140,15 @@ export class Bus {
   private async handleNextMessagePolled(msg: TransportMessage): Promise<void> {
     const naiveParsed = this.serializer.naiveDeserialize(msg);
     if (!this.verifyIsValidMessage(naiveParsed)) {
-      console.debug('Invalid message', msg);
+      this.logger.debug('Invalid message', msg);
       return;
     }
 
     const handlers = this.registry.get((naiveParsed as unknown) as IMessage);
     if (handlers.length === 0) {
-      console.debug(`No handlers registered for ${naiveParsed}. Discarding...`);
+      this.logger.debug(
+        `No handlers registered for ${naiveParsed}. Discarding...`,
+      );
       return;
     }
 

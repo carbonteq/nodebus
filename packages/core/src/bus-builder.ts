@@ -4,11 +4,13 @@ import {
   IMessage,
   ITransport,
   ISerializer,
+  ILogger,
 } from './base';
 import { Bus } from './bus';
 import { DefaultHandlerRegistry } from './default.handler-registry';
 import { InMemoryTransport } from './in-memory.transport';
 import { JSONSerializer } from './json.serializer';
+import { PinoLogger } from './pino.logger';
 
 export class BusBuilder {
   private transport?: ITransport;
@@ -16,10 +18,12 @@ export class BusBuilder {
 
   private registry: IHandlerRegistry;
   private serializer: ISerializer;
+  private logger: ILogger;
 
   private constructor() {
     this.registry = new DefaultHandlerRegistry();
     this.serializer = new JSONSerializer();
+    this.logger = new PinoLogger('Bus');
   }
 
   static configure(): BusBuilder {
@@ -33,10 +37,12 @@ export class BusBuilder {
 
     await transport.initialize(this.registry);
 
-    this.busInstance = new Bus(transport, this.registry, this.serializer);
-
-    const registeredMessages = Array.from(this.registry.getAll().keys());
-    console.debug('Bus initialized', { registeredMessages });
+    this.busInstance = new Bus(
+      transport,
+      this.registry,
+      this.serializer,
+      this.logger,
+    );
 
     return this.busInstance;
   }
@@ -60,6 +66,12 @@ export class BusBuilder {
 
   withSerializer(serializer: ISerializer): this {
     this.serializer = serializer;
+
+    return this;
+  }
+
+  withLogger(logger: ILogger): this {
+    this.logger = logger;
 
     return this;
   }
