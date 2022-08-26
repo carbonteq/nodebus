@@ -1,5 +1,13 @@
 # @nodebus/core
 
+## 0.3.1
+
+### Patch Changes
+
+- 3fa6c5c: Change licence to MIT, and change tsconfig file to extend from nodebus.json
+- 9d7bd0d: Fix: tsconfig include paths must be re-added (due to relative path stuff)
+- b319494: rename withHandler -> addHandler in bus
+
 ## 0.3.0
 
 ### Minor Changes
