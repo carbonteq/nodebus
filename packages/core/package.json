@@ -2,8 +2,8 @@
   "name": "@carbonteq/nodebus-core",
   "version": "0.3.0",
   "description": "Core Impl for nodebus",
-  "author": "Muhammad Arslan <arslan@carbonteq.com>",
-  "license": "GPL-3.0",
+  "author": "Muhammad Arslan <arsalan.karamat@carbonteq.com>",
+  "license": "MIT",
   "private": false,
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -45,6 +45,10 @@
     "dev": "rollup -c rollup.config.ts -w --configPlugin swc3",
     "release": "npm publish --access public --registery https://registry.npmjs.org"
   },
+  "dependencies": {
+    "pino": "^8.4.2",
+    "pino-pretty": "^9.1.0"
+  },
   "devDependencies": {
     "@swc/core": "1.2.241",
     "@swc/jest": "0.2.22",
@@ -62,9 +66,5 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "packageManager": "yarn@1.22.19",
-  "dependencies": {
-    "pino": "^8.4.2",
-    "pino-pretty": "^9.1.0"
-  }
+  "packageManager": "yarn@1.22.19"
 }
