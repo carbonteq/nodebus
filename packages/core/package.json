@@ -62,5 +62,9 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "dependencies": {
+    "pino": "^8.4.2",
+    "pino-pretty": "^9.1.0"
+  }
 }

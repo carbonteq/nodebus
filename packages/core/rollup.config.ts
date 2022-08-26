@@ -18,7 +18,7 @@ const config: RollupOptions =
         }),
       ),
     ],
-    external: ['node:events', 'regenerator-runtime'],
+    external: ['node:events', 'regenerator-runtime', 'pino', 'pino-pretty'],
   };
 
 export default config;
