@@ -1,9 +1,9 @@
-import { ILogger } from './base';
+import { ALLOWED_LEVELS, ILogger, LogLevel } from './base';
 import pino, { Logger as PinoBaseLogger } from 'pino';
 
 const createPinoLogger = (
   context: string,
-  logLevel: string,
+  logLevel: LogLevel,
 ): PinoBaseLogger => {
   const logger = pino({
     level: logLevel,
@@ -28,10 +28,19 @@ export class PinoLogger implements ILogger {
   private logger: PinoBaseLogger;
   private context: string;
 
+  static readonly DEFAULT_LOG_LEVEL: LogLevel = 'info';
+
   // todo: update opts to include log level
   constructor(context?: string) {
-    // todo: check the LOG_LEVEL against available levels
-    const logLevel = process.env.LOG_LEVEL || 'info';
+    const logLevelCand = process.env.LOG_LEVEL || '';
+    let logLevel: LogLevel;
+
+    if (ALLOWED_LEVELS.has(logLevelCand)) {
+      logLevel = logLevelCand as LogLevel;
+    } else {
+      logLevel = PinoLogger.DEFAULT_LOG_LEVEL;
+    }
+
     const ctx = context ?? 'default';
 
     this.logger = createPinoLogger(ctx, logLevel);
@@ -44,7 +53,7 @@ export class PinoLogger implements ILogger {
   }
 
   // will be updated later
-  setLevel(level: 'info' | 'debug') {
+  setLevel(level: LogLevel): void {
     this.logger = createPinoLogger(this.context, level);
   }
 
