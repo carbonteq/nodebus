@@ -47,7 +47,7 @@ export class BusBuilder {
     return this.busInstance;
   }
 
-  withHandler(handler: IClassHandler<IMessage>): this {
+  addHandler(handler: IClassHandler<IMessage>): this {
     this.verifyNotAlreadyInitialized();
 
     /* const handlerInstance = new handler() */

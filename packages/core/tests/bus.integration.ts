@@ -26,7 +26,7 @@ describe('Bus Tests', () => {
       const builder = BusBuilder.configure()
         .withTransport(transport)
         .withSerializer(serializer)
-        .withHandler(goodHandler);
+        .addHandler(goodHandler);
       bus = await builder.initialize();
     });
 
