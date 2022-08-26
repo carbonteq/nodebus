@@ -38,3 +38,4 @@ yarn-error.log*
 
 # TS config build info
 tsconfig.tsbuildinfo
+tsconfig.build.tsbuildinfo

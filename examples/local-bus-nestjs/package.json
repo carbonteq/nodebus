@@ -1,0 +1,30 @@
+{
+  "name": "local-bus-nestjs",
+  "version": "1.0.0",
+  "main": "dist/server",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/server"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.0.0",
+    "@types/node": "^18.7.13",
+    "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.21",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@carbonteq/nodebus-core": "^0.2.2",
+    "@nestjs/common": "^9.0.11",
+    "@nestjs/core": "^9.0.11",
+    "@nestjs/platform-express": "^9.0.11",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.6"
+  }
+}
