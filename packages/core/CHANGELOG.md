@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.2.4
+
+### Patch Changes
+
+- bbbafdb: Pino Logger now checks the validity of log level from env
+
 ## 0.2.3
 
 ### Patch Changes
