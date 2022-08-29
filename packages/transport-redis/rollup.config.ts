@@ -13,12 +13,12 @@ const config: RollupOptions =
     plugins: [
       swc(
         defineRollupSwcOption({
-          minify: false,
+          minify: true,
           tsconfig: './tsconfig.build.json',
         }),
       ),
     ],
-    external: ['node:events', 'regenerator-runtime', 'pino', 'pino-pretty'],
+    external: [ 'regenerator-runtime', '@carbonteq/nodebus-core' ],
   };
 
 export default config;
