@@ -1,2 +1,4 @@
 dist
 lib
+test.mjs
+test.js
