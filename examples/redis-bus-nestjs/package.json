@@ -21,11 +21,13 @@
   },
   "dependencies": {
     "@carbonteq/nodebus-core": "^0.3.2",
-    "@carbonteq/nodebus-transport-redis": "^0.1.0",
+    "@carbonteq/nodebus-transport-redis": "^0.2.0",
     "@nestjs/common": "^9.0.11",
     "@nestjs/core": "^9.0.11",
     "@nestjs/platform-express": "^9.0.11",
+    "ioredis": "^5.2.3",
     "reflect-metadata": "^0.1.13",
+    "regenerator-runtime": "^0.13.9",
     "rxjs": "^7.5.6"
   }
 }
