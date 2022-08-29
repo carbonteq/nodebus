@@ -1,5 +1,12 @@
 # @nodebus/core
 
+## 0.3.2
+
+### Patch Changes
+
+- 57fe3e3: Minify build files
+- e45e482: Remove default key from export map
+
 ## 0.3.1
 
 ### Patch Changes
