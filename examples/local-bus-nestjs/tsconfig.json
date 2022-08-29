@@ -19,7 +19,10 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "strictPropertyInitialization": false,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@src/*": ["./src/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
