@@ -1,5 +1,15 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.2.0
+
+### Minor Changes
+
+- a103202: Explicit deps on core
+
+### Patch Changes
+
+- d4756c5: Move RedisTransport constructor params to cfg object
+
 ## 0.1.0
 
 ### Minor Changes
