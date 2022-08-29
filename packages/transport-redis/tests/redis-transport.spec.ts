@@ -1,127 +1,135 @@
-import {RedisTransport} from '@carbonteq/nodebus-transport-redis';
-import {ILogger, PinoLogger} from "@carbonteq/nodebus-core";
-import {default as Redis} from 'ioredis'
+import { RedisTransport } from '@carbonteq/nodebus-transport-redis';
+import { ILogger, PinoLogger } from '@carbonteq/nodebus-core';
+import { default as Redis } from 'ioredis';
+import { RedisTransportConfig } from 'src';
 
-jest.mock('ioredis', () => require('ioredis-mock'))
+jest.mock('ioredis', () => require('ioredis-mock'));
 
 describe('Redis Transport', () => {
-    const client = new Redis()
+  const client = new Redis();
 
-    const logger: ILogger = new PinoLogger()
+  const logger: ILogger = new PinoLogger();
 
-    const loggerDebugSpy = jest.spyOn(logger, 'debug')
+  const cfg: RedisTransportConfig = {
+    client,
+    logger,
+  };
 
-    let transport: RedisTransport;
+  const loggerDebugSpy = jest.spyOn(logger, 'debug');
 
-    beforeEach(async () => {
-        transport = new RedisTransport(client, logger);
+  let transport: RedisTransport;
 
-        await transport.initialize()
-        await transport.resetQueue()
-    });
+  beforeEach(async () => {
+    transport = new RedisTransport(cfg);
 
-    it('debug logs on initialize', () => {
-        expect(loggerDebugSpy).toHaveBeenCalledWith("Redis Transport: Ping => ", "PONG")
-    })
+    await transport.initialize();
+    await transport.resetQueue();
+  });
 
-    it('initial queue length is 0', async () => {
-        const len = await transport.length()
+  it('debug logs on initialize', () => {
+    expect(loggerDebugSpy).toHaveBeenCalledWith(
+      'Redis Transport: Ping => ',
+      'PONG',
+    );
+  });
 
-        expect(len).toBe(0)
-    })
+  it('initial queue length is 0', async () => {
+    const len = await transport.length();
 
-    it('send works correctly', async () => {
-        await transport.send("some message")
-    })
+    expect(len).toBe(0);
+  });
 
-    it('send increases the length by 1', async () => {
-        await transport.send("some message")
+  it('send works correctly', async () => {
+    await transport.send('some message');
+  });
 
-        const len = await transport.length()
+  it('send increases the length by 1', async () => {
+    await transport.send('some message');
 
-        expect(len).toBe(1)
-    })
+    const len = await transport.length();
 
-    it('readNextMessage returns the correct message', async () => {
-        const msg = "message asdasd"
+    expect(len).toBe(1);
+  });
 
-        await transport.send(msg)
+  it('readNextMessage returns the correct message', async () => {
+    const msg = 'message asdasd';
 
-        const nextMsg = await transport.readNextMessage()
+    await transport.send(msg);
 
-        expect(nextMsg).toBe(msg)
-    })
+    const nextMsg = await transport.readNextMessage();
 
-    it('readNextMessage returns undefined when no message in queue', async () => {
-        const nextMsg = await transport.readNextMessage()
+    expect(nextMsg).toBe(msg);
+  });
 
-        expect(nextMsg).toBeUndefined()
-    })
+  it('readNextMessage returns undefined when no message in queue', async () => {
+    const nextMsg = await transport.readNextMessage();
 
-    it('queue order (FIFO) is maintained', async () => {
-        const msg1 = "message 123"
-        const msg2 = "message 456"
+    expect(nextMsg).toBeUndefined();
+  });
 
-        await transport.send(msg1)
-        await transport.send(msg2)
+  it('queue order (FIFO) is maintained', async () => {
+    const msg1 = 'message 123';
+    const msg2 = 'message 456';
 
-        expect(await transport.readNextMessage()).toBe(msg1)
-        expect(await transport.readNextMessage()).toBe(msg2)
-    })
+    await transport.send(msg1);
+    await transport.send(msg2);
 
+    expect(await transport.readNextMessage()).toBe(msg1);
+    expect(await transport.readNextMessage()).toBe(msg2);
+  });
 
-    it('msg is deleted without error when no message in queue', async () => {
-        expect(await transport.readNextMessage()).toBeUndefined()
+  it('msg is deleted without error when no message in queue', async () => {
+    expect(await transport.readNextMessage()).toBeUndefined();
 
-        await expect(async () => {
-            await transport.deleteMessage("radasdad")
-        }).not.toThrow()
+    await expect(async () => {
+      await transport.deleteMessage('radasdad');
+    }).not.toThrow();
 
-        expect(await transport.readNextMessage()).toBeUndefined()
-    })
+    expect(await transport.readNextMessage()).toBeUndefined();
+  });
 
-    it("msg is deleted correctly when only one is queue", async () => {
-        const msg = "message 123"
+  it('msg is deleted correctly when only one is queue', async () => {
+    const msg = 'message 123';
 
-        await transport.send(msg)
+    await transport.send(msg);
 
-        expect(await transport.length()).toBe(1)
+    expect(await transport.length()).toBe(1);
 
-        await transport.deleteMessage(msg)
+    await transport.deleteMessage(msg);
 
-        expect(await transport.length()).toBe(0)
-        expect(await transport.readNextMessage()).toBeUndefined()
-    })
+    expect(await transport.length()).toBe(0);
+    expect(await transport.readNextMessage()).toBeUndefined();
+  });
 
-    it('middle message is removed properly', async () => {
-        const msg1 = "message 123"
-        const msg2 = "message 456"
-        const msg3 = "message 789"
+  it('middle message is removed properly', async () => {
+    const msg1 = 'message 123';
+    const msg2 = 'message 456';
+    const msg3 = 'message 789';
 
-        await transport.send(msg1)
-        await transport.send(msg2)
-        await transport.send(msg3)
+    await transport.send(msg1);
+    await transport.send(msg2);
+    await transport.send(msg3);
 
-        expect(await transport.length()).toBe(3)
+    expect(await transport.length()).toBe(3);
 
-        await transport.deleteMessage(msg2)
+    await transport.deleteMessage(msg2);
 
-        expect(await transport.readNextMessage()).toBe(msg1)
-        expect(await transport.readNextMessage()).toBe(msg3)
-    })
+    expect(await transport.readNextMessage()).toBe(msg1);
+    expect(await transport.readNextMessage()).toBe(msg3);
+  });
 
-    it('returnMessage returns message to queue', async () => {
-        const msg1 = "message 123"
-        const msg2 = "message 456"
+  it('returnMessage returns message to queue', async () => {
+    const msg1 = 'message 123';
+    const msg2 = 'message 456';
 
-        await transport.send(msg1)
-        await transport.send(msg2)
+    await transport.send(msg1);
+    await transport.send(msg2);
 
-        expect(await transport.readNextMessage()).toBe(msg1)
+    expect(await transport.readNextMessage()).toBe(msg1);
 
-        await transport.returnMessage(msg1)
+    await transport.returnMessage(msg1);
 
-        expect(await transport.readNextMessage()).toBe(msg2)
-        expect(await transport.readNextMessage()).toBe(msg1)
-    })
+    expect(await transport.readNextMessage()).toBe(msg2);
+    expect(await transport.readNextMessage()).toBe(msg1);
+  });
 });

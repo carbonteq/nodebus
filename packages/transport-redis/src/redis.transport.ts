@@ -1,4 +1,4 @@
-import {ILogger, ITransport, PinoLogger} from '@carbonteq/nodebus-core';
+import {ILogger, ITransport } from '@carbonteq/nodebus-core';
 import type { Redis } from 'ioredis';
 
 export interface RedisTransportConfig {
@@ -13,7 +13,7 @@ export class RedisTransport implements ITransport {
   private readonly client: Redis
   private readonly logger: ILogger
 
-  constructor(cfg: RedisTransport) {
+  constructor(cfg: RedisTransportConfig) {
     this.client = cfg.client
     this.logger = cfg.logger
 
