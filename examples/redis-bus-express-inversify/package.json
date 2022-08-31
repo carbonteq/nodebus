@@ -37,7 +37,6 @@
     "inversify-logger-middleware": "^3.1.0",
     "ioredis": "^5.2.3",
     "morgan": "^1.10.0",
-    "reflect-metadata": "^0.1.13",
-    "regenerator-runtime": "^0.13.9"
+    "reflect-metadata": "^0.1.13"
   }
 }
