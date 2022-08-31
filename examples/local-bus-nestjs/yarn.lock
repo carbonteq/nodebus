@@ -79,10 +79,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@carbonteq/nodebus-core@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-core/-/nodebus-core-0.3.2.tgz#f894e87a714a76001baca2e62a11a6d7981cc294"
-  integrity sha512-ur4kMjDMZQvMtqkXcnM9XtdXq+EyrnfojQFrqOQt778LOL7q1yuy6mfDANVbQJHGq6T7v202zV/oeqhlnAQVNw==
+"@carbonteq/nodebus-core@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-core/-/nodebus-core-0.3.3.tgz#48e236ae5d5025eb7fafaffac49a055b723332c8"
+  integrity sha512-T4vZGnDxeYrWxDr4VrOXYY0o/XkKREHGWpICUuYxSflKm21kj2YfciVV+wGJ9IwIzvEnKDwA+8HK39D3Y8iepg==
   dependencies:
     pino "^8.4.2"
     pino-pretty "^9.1.0"
