@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { BarService } from "@src/app/bar.service";
 
 @Controller("/test")
@@ -8,9 +8,18 @@ export class MainController {
   constructor(private readonly serv: BarService) {}
 
   @Get()
-  async test() {
-    await this.serv.doSomething("some random Id");
+  async testWithRandomId() {
+    const id = "some random id"
 
-    return { status: "ok" };
+    await this.serv.doSomething(id);
+
+    return { id };
+  }
+
+  @Get("/:id")
+  async testWithCustomId(@Param("id") id: string){
+    await this.serv.doSomething(id)
+
+    return {id}
   }
 }
