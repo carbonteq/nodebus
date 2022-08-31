@@ -16,6 +16,7 @@ export const MemoryBusProvider: Provider<Bus> = {
     const cfg: RedisTransportConfig = {
       client: redisClient,
       logger: pinoLogger,
+      queueName: "randomName", // optional, RedisTransport.DEFAULT_Q by default
     };
 
     const redisTransport = new RedisTransport(cfg);
