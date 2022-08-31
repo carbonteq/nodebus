@@ -10,7 +10,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "prettier",
   ],
-  rules: {},
   env: {
     browser: false,
     node: true,
@@ -25,12 +24,8 @@ module.exports = {
     ".prettierrc",
   ],
   rules: {
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { ignoreRestSiblings: true },
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
   },
 };
