@@ -1,4 +1,5 @@
 import { BusBuilder, Bus } from '@carbonteq/nodebus-core';
+import { FooEventHandler } from '@src/app/handlers';
 import { BusService } from '@src/app/services';
 import { injectable } from 'inversify';
 
@@ -12,7 +13,9 @@ export class BusServiceProvider implements BusService {
 
   async getBus(): Promise<Bus> {
     if (!this.bus) {
-      const bus = await BusBuilder.configure().initialize();
+      const bus = await BusBuilder.configure()
+        .addHandler(new FooEventHandler()) // or inject it
+        .initialize();
       await bus.start();
 
       this.bus = bus;

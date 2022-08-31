@@ -1,4 +1,5 @@
 import { inject, injectable } from 'inversify';
+import { FooEvent } from '../events';
 import { BusService } from './bus.service';
 
 @injectable()
@@ -7,10 +8,9 @@ export class BarService {
   private busService: BusService;
 
   async doSomething(withId: string): Promise<void> {
-    // console.log('Bus: ', this.bus());
     const bus = await this.busService.getBus();
-    console.log('Bus: ', bus.state);
 
-    console.debug('lala');
+    const event = new FooEvent(withId);
+    await bus.send(event);
   }
 }

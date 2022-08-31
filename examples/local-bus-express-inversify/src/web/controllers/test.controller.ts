@@ -1,5 +1,10 @@
 import { BarService } from '@src/app/services';
-import { controller, interfaces, httpGet } from 'inversify-express-utils';
+import {
+  controller,
+  interfaces,
+  httpGet,
+  requestParam,
+} from 'inversify-express-utils';
 import { inject } from 'inversify';
 
 @controller('/test')
@@ -8,9 +13,18 @@ export class TestController implements interfaces.Controller {
   private serv: BarService;
 
   @httpGet('/')
-  async testEventDispatch() {
-    this.serv.doSomething('some random id');
+  async testEventDefaultId() {
+    const id = 'some random id';
 
-    return { status: 'ok' };
+    this.serv.doSomething(id);
+
+    return { id };
+  }
+
+  @httpGet('/:id')
+  async testEventWithId(@requestParam('id') id: string) {
+    this.serv.doSomething(id);
+
+    return { id };
   }
 }

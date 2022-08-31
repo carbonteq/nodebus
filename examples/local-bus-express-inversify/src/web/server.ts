@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { InversifyExpressServer } from 'inversify-express-utils';
+import * as morgan from 'morgan';
 
 import { container } from '@src/infra/ioc.container';
 
@@ -10,7 +11,9 @@ const PORT = 3000; // or from config
 
 const serverBuilder = new InversifyExpressServer(container);
 
-// serverBuilder.setConfig((app) => {});
+serverBuilder.setConfig((app) => {
+  app.use(morgan('tiny'));
+});
 
 const app = serverBuilder.build();
 
