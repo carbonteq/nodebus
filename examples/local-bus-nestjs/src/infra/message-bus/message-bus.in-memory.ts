@@ -14,5 +14,5 @@ export const MemoryBusProvider: Provider<Bus> = {
     await bus.start();
 
     return bus;
-  }
+  },
 };

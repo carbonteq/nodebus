@@ -5,6 +5,6 @@ import { MainController } from "./controllers/main.controller";
 
 @Module({
   imports: [AppModule, ...InfraModules],
-  controllers: [MainController]
+  controllers: [MainController],
 })
 export class WebModule {}

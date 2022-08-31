@@ -3,6 +3,6 @@ import { BarService } from "./bar.service";
 
 @Module({
   providers: [BarService],
-  exports: [BarService]
+  exports: [BarService],
 })
 export class AppModule {}

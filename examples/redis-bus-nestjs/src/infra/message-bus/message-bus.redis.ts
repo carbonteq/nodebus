@@ -4,7 +4,7 @@ import { FooEventHandler } from "@src/app/handlers/foo.handler";
 import { default as Redis } from "ioredis";
 import {
   RedisTransport,
-  RedisTransportConfig
+  RedisTransportConfig,
 } from "@carbonteq/nodebus-transport-redis";
 
 export const MemoryBusProvider: Provider<Bus> = {
@@ -15,7 +15,7 @@ export const MemoryBusProvider: Provider<Bus> = {
 
     const cfg: RedisTransportConfig = {
       client: redisClient,
-      logger: pinoLogger
+      logger: pinoLogger,
     };
 
     const redisTransport = new RedisTransport(cfg);
@@ -31,5 +31,5 @@ export const MemoryBusProvider: Provider<Bus> = {
     await bus.start();
 
     return bus;
-  }
+  },
 };
