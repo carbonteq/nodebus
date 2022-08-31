@@ -18,7 +18,7 @@ const config: RollupOptions =
         }),
       ),
     ],
-    external: [ 'regenerator-runtime', '@carbonteq/nodebus-core' ],
+    external: ['regenerator-runtime', '@carbonteq/nodebus-core'],
   };
 
 export default config;

@@ -1,23 +1,27 @@
-import {ILogger, ITransport } from '@carbonteq/nodebus-core';
+import { ILogger, ITransport } from '@carbonteq/nodebus-core';
 import type { Redis } from 'ioredis';
 
 export interface RedisTransportConfig {
-  client: Redis // ioredis client
+  client: Redis; // ioredis client
 
-  logger: ILogger
+  logger: ILogger;
+
+  queueName?: string;
 }
 
 export class RedisTransport implements ITransport {
   static readonly DEFAULT_Q = 'defaultQ';
 
-  private readonly client: Redis
-  private readonly logger: ILogger
+  private readonly client: Redis;
+  private readonly logger: ILogger;
+  readonly queueName: string;
 
   constructor(cfg: RedisTransportConfig) {
-    this.client = cfg.client
-    this.logger = cfg.logger
+    this.client = cfg.client;
+    this.logger = cfg.logger;
+    this.queueName = cfg.queueName ?? RedisTransport.DEFAULT_Q;
 
-    this.logger.setContext("RedisTransport")
+    this.logger.setContext('RedisTransport');
   }
 
   async initialize(): Promise<void> {
@@ -27,17 +31,17 @@ export class RedisTransport implements ITransport {
   }
 
   async send(message: string): Promise<void> {
-    await this.client.lpush(RedisTransport.DEFAULT_Q, message);
+    await this.client.lpush(this.queueName, message);
   }
 
   async readNextMessage(): Promise<string | undefined> {
-    const val = await this.client.rpop(RedisTransport.DEFAULT_Q);
+    const val = await this.client.rpop(this.queueName);
 
     if (val !== null) return val;
   }
 
   async deleteMessage(message: string): Promise<void> {
-    await this.client.lrem(RedisTransport.DEFAULT_Q, 1, message);
+    await this.client.lrem(this.queueName, 1, message);
   }
 
   async returnMessage(message: string): Promise<void> {
@@ -45,10 +49,10 @@ export class RedisTransport implements ITransport {
   }
 
   async length(): Promise<number> {
-    return await this.client.llen(RedisTransport.DEFAULT_Q)
+    return await this.client.llen(this.queueName);
   }
 
-  async resetQueue(): Promise<void>{
-    await this.client.del(RedisTransport.DEFAULT_Q)
+  async resetQueue(): Promise<void> {
+    await this.client.del(this.queueName);
   }
 }
