@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.3.3
+
+### Patch Changes
+
+- 2190ed9: Update formatting
+
 ## 0.3.2
 
 ### Patch Changes

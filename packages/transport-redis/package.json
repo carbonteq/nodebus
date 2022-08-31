@@ -1,6 +1,6 @@
 {
   "name": "@carbonteq/nodebus-transport-redis",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Redis Transport for @carbonteq/nodebus-core",
   "author": "Arslan <arslan.karamat@carbonteq.com>",
   "license": "MIT",
@@ -45,7 +45,7 @@
     "release": "npm publish --access public --registery https://registry.npmjs.org"
   },
   "dependencies": {
-    "@carbonteq/nodebus-core": "^0.3.2"
+    "@carbonteq/nodebus-core": "^0.3.3"
   },
   "devDependencies": {
     "@swc/core": "1.2.241",

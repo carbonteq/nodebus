@@ -1,5 +1,16 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.3.0
+
+### Minor Changes
+
+- efcde5b: Queue name is now configurable
+
+### Patch Changes
+
+- Updated dependencies [2190ed9]
+  - @carbonteq/nodebus-core@0.3.3
+
 ## 0.2.0
 
 ### Minor Changes
