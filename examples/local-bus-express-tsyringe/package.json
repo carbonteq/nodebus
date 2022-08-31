@@ -1,5 +1,5 @@
 {
-  "name": "redis-bus-express-inversify",
+  "name": "local-bus-express-tsyringe",
   "version": "1.0.0",
   "main": "src/web/server.ts",
   "license": "MIT",
@@ -30,13 +30,9 @@
   },
   "dependencies": {
     "@carbonteq/nodebus-core": "^0.3.3",
-    "@carbonteq/nodebus-transport-redis": "^0.3.0",
     "express": "^4.18.1",
-    "inversify": "^6.0.1",
-    "inversify-express-utils": "^6.4.3",
-    "inversify-logger-middleware": "^3.1.0",
-    "ioredis": "^5.2.3",
     "morgan": "^1.10.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.7.0"
   }
 }
