@@ -30,6 +30,7 @@ export class BusBuilder {
     return new BusBuilder();
   }
 
+  // todo: make transport initialize optional
   async initialize(): Promise<Bus> {
     this.verifyNotAlreadyInitialized();
 

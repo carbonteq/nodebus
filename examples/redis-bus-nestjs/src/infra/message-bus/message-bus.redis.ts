@@ -20,14 +20,13 @@ export const MemoryBusProvider: Provider<Bus> = {
     };
 
     const redisTransport = new RedisTransport(cfg);
-    await redisTransport.initialize();
 
     const bus = await BusBuilder.configure()
       .withTransport(redisTransport)
       // you can also mark FooEventHandler as Injectable if you want a singleton with some specific config etc
       // and then use https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory to inject it here
       .addHandler(new FooEventHandler())
-      .initialize();
+      .initialize(); // transport will init here
 
     await bus.start();
 
