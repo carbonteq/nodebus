@@ -7,7 +7,7 @@ import {
 } from '@carbonteq/nodebus-core';
 
 export const sleep = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export class TestEvent implements IEvent {
   name = 'TestEvent';

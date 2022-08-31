@@ -39,7 +39,7 @@ export class InMemoryTransport implements ITransport {
   readNextMessage(): Promise<TransportMessage | undefined> {
     // this.logger.debug('Reading next message', { len: this.length });
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const onMessageEmitted = () => {
         unsubscribeEmitter();
         clearTimeout(timeoutToken);

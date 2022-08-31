@@ -16,7 +16,7 @@ export enum BusState {
 }
 
 const sleep = async (timeoutMs: number): Promise<void> =>
-  new Promise(resolve => setTimeout(resolve, timeoutMs));
+  new Promise((resolve) => setTimeout(resolve, timeoutMs));
 
 const STARTED_STATES = new Set([BusState.Starting, BusState.Started]);
 const STOP_STATES = new Set([BusState.Stopping, BusState.Stopped]);
@@ -111,7 +111,7 @@ export class Bus {
     msg: T,
     handlers: IClassHandler<T>[],
   ): Promise<void> {
-    const handlersToInvoke = handlers.map(handler =>
+    const handlersToInvoke = handlers.map((handler) =>
       this.dispatchMessageToHandler(msg, handler),
     );
 
@@ -121,10 +121,10 @@ export class Bus {
       numHandlers: handlers.length,
     });
 
-    const failed = handlerResults.filter(r => r.status === 'rejected');
+    const failed = handlerResults.filter((r) => r.status === 'rejected');
 
     if (failed.length > 0) {
-      const reasons = (failed as PromiseRejectedResult[]).map(h => h.reason);
+      const reasons = (failed as PromiseRejectedResult[]).map((h) => h.reason);
 
       this.logger.error('Some handlers failed to run', { msg, reasons });
     }
@@ -144,7 +144,7 @@ export class Bus {
       return;
     }
 
-    const handlers = this.registry.get((naiveParsed as unknown) as IMessage);
+    const handlers = this.registry.get(naiveParsed as unknown as IMessage);
     if (handlers.length === 0) {
       this.logger.debug(
         `No handlers registered for ${naiveParsed}. Discarding...`,
