@@ -1,7 +1,7 @@
 import { Bus, BusBuilder, PinoLogger } from "@carbonteq/nodebus-core";
 import { Provider } from "@nestjs/common";
 import { FooEventHandler } from "@src/app/handlers/foo.handler";
-import { default as Redis } from "ioredis";
+import Redis from "ioredis";
 import {
   RedisTransport,
   RedisTransportConfig,

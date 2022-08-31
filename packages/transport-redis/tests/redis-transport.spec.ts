@@ -1,6 +1,6 @@
 import { RedisTransport } from '@carbonteq/nodebus-transport-redis';
 import { ILogger, PinoLogger } from '@carbonteq/nodebus-core';
-import { default as Redis } from 'ioredis';
+import Redis from 'ioredis';
 import { RedisTransportConfig } from 'src';
 
 jest.mock('ioredis', () => require('ioredis-mock'));
