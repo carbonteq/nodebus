@@ -26,10 +26,14 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Remove yarnrc
+        run: rm .yarnrc.yml
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'yarn'
 
       - name: Setup yarn version
         run: yarn set version berry
