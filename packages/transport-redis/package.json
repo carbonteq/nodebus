@@ -69,6 +69,5 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "packageManager": "yarn@1.22.19",
-  "peerDependencies": {}
+  "packageManager": "yarn@1.22.19"
 }

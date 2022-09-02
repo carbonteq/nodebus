@@ -4,7 +4,6 @@
   "description": "Core Impl for nodebus",
   "author": "Muhammad Arslan <arsalan.karamat@carbonteq.com>",
   "license": "MIT",
-  "private": false,
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -65,6 +64,5 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "packageManager": "yarn@1.22.19",
-  "peerDependencies": {}
+  "packageManager": "yarn@1.22.19"
 }
