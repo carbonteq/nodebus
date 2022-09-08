@@ -35,7 +35,7 @@
   "scripts": {
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "test": "jest --verbose",
     "tc": "tsc --pretty --noEmit --project tsconfig.build.json",
     "prebuild": "rimraf lib",
