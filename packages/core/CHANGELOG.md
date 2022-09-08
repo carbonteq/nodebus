@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.3.4
+
+### Patch Changes
+
+- 39bc012: Add regenerator-runtime. Remove await in app loop
+
 ## 0.3.3
 
 ### Patch Changes
