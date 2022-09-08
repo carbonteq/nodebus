@@ -7,7 +7,7 @@ export class MainController {
 
   @Get()
   async test() {
-    const id = "nestjs redis"
+    const id = "nestjs redis";
 
     await this.serv.doSomething(id);
 
@@ -15,9 +15,9 @@ export class MainController {
   }
 
   @Get("/:id")
-  async testWithSpecificId(@Param("id") id: string){
-    await this.serv.doSomething(id)
+  async testWithSpecificId(@Param("id") id: string) {
+    await this.serv.doSomething(id);
 
-    return {id}
+    return { id };
   }
 }

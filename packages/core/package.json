@@ -46,7 +46,8 @@
   },
   "dependencies": {
     "pino": "^8.4.2",
-    "pino-pretty": "^9.1.0"
+    "pino-pretty": "^9.1.0",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@swc/core": "1.2.241",
