@@ -1,5 +1,14 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.3.1
+
+### Patch Changes
+
+- 585d697: Better import syntax for ioredis
+- 39bc012: Add regenerator-runtime. Remove await in app loop
+- Updated dependencies [39bc012]
+  - @carbonteq/nodebus-core@0.3.4
+
 ## 0.3.0
 
 ### Minor Changes
