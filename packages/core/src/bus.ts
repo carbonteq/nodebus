@@ -58,7 +58,8 @@ export class Bus {
     // todo: add concurrency
 
     // await Promise.all([this.applicationLoop()]); // WARN: Never use this
-    setTimeout(async () => await this.applicationLoop(), 0);
+    setTimeout(async () => this.applicationLoop(), 0);
+    // setImmediate(async () => this.applicationLoop());
 
     this.logger.debug('Bus started with concurrency: 1');
   }
@@ -99,6 +100,8 @@ export class Bus {
   private async handleNextMessage(): Promise<boolean> {
     const message = await this.transport.readNextMessage();
     if (!message) return false;
+
+    this.logger.debug(`Read next message from the transport`);
 
     // add middleware stuff
     this.handleNextMessagePolled(message);

@@ -9,7 +9,7 @@ export class MainController {
 
   @Get()
   async testWithRandomId() {
-    const id = "some random id"
+    const id = "some random id";
 
     await this.serv.doSomething(id);
 
@@ -17,9 +17,9 @@ export class MainController {
   }
 
   @Get("/:id")
-  async testWithCustomId(@Param("id") id: string){
-    await this.serv.doSomething(id)
+  async testWithCustomId(@Param("id") id: string) {
+    await this.serv.doSomething(id);
 
-    return {id}
+    return { id };
   }
 }
