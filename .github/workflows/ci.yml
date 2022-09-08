@@ -15,9 +15,15 @@ on:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-12]
+
+
     name: Build and Test
     timeout-minutes: 15
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     if: ${{ github.ref != 'refs/heads/changeset-release/main' }}
 
     steps:
