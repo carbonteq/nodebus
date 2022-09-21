@@ -45,7 +45,7 @@
     "release": "npm publish --access public --registery https://registry.npmjs.org"
   },
   "dependencies": {
-    "@carbonteq/nodebus-core": "^0.3.4",
+    "@carbonteq/nodebus-core": "*",
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
