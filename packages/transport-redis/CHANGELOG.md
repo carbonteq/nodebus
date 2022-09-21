@@ -1,5 +1,11 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.3.2
+
+### Patch Changes
+
+- 1e58047: Use linked version rather than fixed v for core
+
 ## 0.3.1
 
 ### Patch Changes
