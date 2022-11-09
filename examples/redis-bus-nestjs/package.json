@@ -12,19 +12,19 @@
     "start:prod": "node dist/server"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.1.1",
-    "@types/node": "^18.7.14",
+    "@nestjs/cli": "^9.1.3",
+    "@types/node": "^18.7.18",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.21",
     "tsconfig-paths": "^4.1.0",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.3"
   },
   "dependencies": {
-    "@carbonteq/nodebus-core": "^0.3.3",
-    "@carbonteq/nodebus-transport-redis": "^0.3.0",
-    "@nestjs/common": "^9.0.11",
-    "@nestjs/core": "^9.0.11",
-    "@nestjs/platform-express": "^9.0.11",
+    "@carbonteq/nodebus-core": "^0.3.4",
+    "@carbonteq/nodebus-transport-redis": "^0.3.2",
+    "@nestjs/common": "^9.1.1",
+    "@nestjs/core": "^9.1.1",
+    "@nestjs/platform-express": "^9.1.1",
     "ioredis": "^5.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.6"

@@ -6,7 +6,6 @@
     "packages": [
       "apps/*",
       "packages/*",
-      "shared/eslint-config-nodebus",
       "shared/tsconfig"
     ]
   },
@@ -19,14 +18,15 @@
     "test": "turbo run test",
     "tc": "turbo run tc",
     "release": "turbo run build && changeset publish",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{json,md}\""
   },
   "devDependencies": {
-    "@changesets/cli": "^2.24.3",
-    "husky": "^8.0.1",
+    "@changesets/cli": "^2.25.2",
+    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
-    "turbo": "latest",
-    "zx": "^7.0.8"
+    "rome": "^10.0.0",
+    "turbo": "1.6.3",
+    "zx": "^7.1.1"
   },
   "engines": {
     "npm": ">=7.0.0",

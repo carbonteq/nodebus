@@ -33,9 +33,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "rome check src tests",
+    "lint:fix": "rome check src tests --apply-suggested",
+    "format:dry": "rome format src tests",
+    "format": "rome format src tests --write",
     "test": "jest --verbose",
     "tc": "tsc --pretty --noEmit --project tsconfig.build.json",
     "prebuild": "rimraf lib",
@@ -45,22 +46,21 @@
     "release": "npm publish --access public --registery https://registry.npmjs.org"
   },
   "dependencies": {
-    "pino": "^8.4.2",
-    "pino-pretty": "^9.1.0",
-    "regenerator-runtime": "^0.13.9"
+    "pino": "^8.7.0",
+    "pino-pretty": "^9.1.1",
+    "regenerator-runtime": "^0.13.10"
   },
   "devDependencies": {
-    "@swc/core": "1.2.241",
-    "@swc/jest": "0.2.22",
+    "@swc/core": "1.3.14",
+    "@swc/jest": "0.2.23",
     "@types/jest": "28.1.7",
-    "@types/node": "18.7.8",
-    "eslint-config-nodebus": "*",
+    "@types/node": "18.11.9",
     "jest": "28.1.3",
     "rimraf": "3.0.2",
     "rollup": "2.78.1",
-    "rollup-plugin-swc3": "0.3.0",
+    "rollup-plugin-swc3": "0.6.0",
     "tsconfig": "*",
-    "typescript": "4.7.4"
+    "typescript": "4.8.4"
   },
   "engines": {
     "node": ">=16.0.0",
