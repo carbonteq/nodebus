@@ -33,9 +33,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "lint": "rome check src tests",
+    "lint:fix": "rome check src tests --apply-suggested",
+    "format:dry": "rome format src tests",
+    "format": "rome format src tests --write",
     "test": "jest --verbose",
     "tc": "tsc --pretty --noEmit --project tsconfig.build.json",
     "prebuild": "rimraf lib",
@@ -54,7 +55,6 @@
     "@types/ioredis-mock": "^5.6.0",
     "@types/jest": "28.1.7",
     "@types/node": "18.11.9",
-    "eslint-config-nodebus": "*",
     "ioredis": "^5.2.4",
     "ioredis-mock": "^8.2.2",
     "jest": "28.1.3",
