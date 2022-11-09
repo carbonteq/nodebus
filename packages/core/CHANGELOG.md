@@ -1,5 +1,16 @@
 # @nodebus/core
 
+## 0.4.0
+
+### Minor Changes
+
+- 9bbad8f: Use rome for linting+formatting. Remove eslint
+
+### Patch Changes
+
+- 2a39b22: Finalize rome config
+- 88f900d: Update deps complete (stay on rollup 2 for now)
+
 ## 0.3.4
 
 ### Patch Changes
