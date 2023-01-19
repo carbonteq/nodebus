@@ -1,9 +1,9 @@
 import { Global, Module } from "@nestjs/common";
-import { MemoryBusProvider } from "./message-bus.redis";
+import { RedisBusProvider } from "./message-bus.redis";
 
 @Global()
 @Module({
-  providers: [MemoryBusProvider],
-  exports: [MemoryBusProvider],
+  providers: [RedisBusProvider],
+  exports: [RedisBusProvider],
 })
-export class MessageBusModule {}
+export class MessageBusModule { }
