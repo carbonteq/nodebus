@@ -1,5 +1,17 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.5.0
+
+### Minor Changes
+
+- 33a15dd: Update rollup, jest and ioredis mocks
+
+### Patch Changes
+
+- Updated dependencies [72ee1e2]
+- Updated dependencies [33a15dd]
+  - @carbonteq/nodebus-core@0.5.0
+
 ## 0.4.0
 
 ### Minor Changes

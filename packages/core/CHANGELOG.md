@@ -1,5 +1,15 @@
 # @nodebus/core
 
+## 0.5.0
+
+### Minor Changes
+
+- 33a15dd: Update rollup, jest and ioredis mocks
+
+### Patch Changes
+
+- 72ee1e2: Remove fatal from ILogger
+
 ## 0.4.0
 
 ### Minor Changes
