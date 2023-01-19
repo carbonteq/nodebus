@@ -12,6 +12,10 @@
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts"],
       "outputs": []
     },
+    "format": {
+      "inputs": ["src/**/*.ts", "tests/**/*.ts"],
+      "outputs": []
+    },
     "dev": {
       "cache": false
     },

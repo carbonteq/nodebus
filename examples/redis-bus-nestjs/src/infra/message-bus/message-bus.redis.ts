@@ -7,7 +7,7 @@ import {
   RedisTransportConfig,
 } from "@carbonteq/nodebus-transport-redis";
 
-export const MemoryBusProvider: Provider<Bus> = {
+export const RedisBusProvider: Provider<Bus> = {
   provide: Bus,
   useFactory: async () => {
     const redisClient = new Redis();

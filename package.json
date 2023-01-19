@@ -17,6 +17,7 @@
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
     "tc": "turbo run tc",
+    "fmt": "turbo run format",
     "release": "turbo run build && changeset publish",
     "format": "prettier --write \"**/*.{json,md}\""
   },
