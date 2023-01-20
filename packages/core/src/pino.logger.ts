@@ -1,5 +1,6 @@
-import { ALLOWED_LEVELS, ILogger, LogLevel } from './base';
+import { ALLOWED_LEVELS, Logger, LogLevel } from './base/logger';
 import pino, { Logger as PinoBaseLogger } from 'pino';
+import { assertUnreachablePassthrough } from '@carbonteq/hexapp';
 
 const createPinoLogger = (
 	context: string,
@@ -24,11 +25,11 @@ const createPinoLogger = (
 	return logger;
 };
 
-export class PinoLogger implements ILogger {
+export class PinoLogger implements Logger {
 	private logger: PinoBaseLogger;
 	private context: string;
 
-	static readonly DEFAULT_LOG_LEVEL: LogLevel = 'info';
+	static readonly DEFAULT_LOG_LEVEL: LogLevel = LogLevel.INFO;
 
 	// todo: update opts to include log level
 	constructor(context?: string) {
@@ -73,7 +74,18 @@ export class PinoLogger implements ILogger {
 		this.logger.error(data);
 	}
 
-	fatal(...data: any[]): void {
-		this.logger.fatal(data);
+	log(level: LogLevel, ...args: any[]): void {
+		switch (level) {
+			case LogLevel.ERROR:
+				return this.info(...args);
+			case LogLevel.WARN:
+				return this.warn(...args);
+			case LogLevel.INFO:
+				return this.info(...args);
+			case LogLevel.DEBUG:
+				return this.debug(...args);
+			default:
+				assertUnreachablePassthrough(level);
+		}
 	}
 }

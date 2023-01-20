@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events';
-import { ILogger, ITransport, TransportMessage } from './base';
+import { Logger, ITransport, TransportMessage } from './base';
 import { PinoLogger } from './pino.logger';
 
 export interface InMemoryTransportConfig {
@@ -14,14 +14,14 @@ const defaultConfig: Readonly<InMemoryTransportConfig> = {
 
 // todo: add logger, queue and retry strat
 export class InMemoryTransport implements ITransport {
-	private readonly logger: ILogger;
+	private readonly logger: Logger;
 	private readonly cfg: InMemoryTransportConfig;
 
 	private queue: TransportMessage[] = [];
 	private queuePushed: EventEmitter = new EventEmitter();
 	/* private _deadLetterQueue: InMemoryQueue = []; */
 
-	constructor(cfg?: Partial<InMemoryTransportConfig> & { logger?: ILogger }) {
+	constructor(cfg?: Partial<InMemoryTransportConfig> & { logger?: Logger }) {
 		this.logger = cfg?.logger ?? new PinoLogger('InMemoryTransport');
 		this.cfg = {
 			receiveTimeoutMs: cfg?.receiveTimeoutMs ?? defaultConfig.receiveTimeoutMs,

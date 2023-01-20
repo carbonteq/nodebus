@@ -1,7 +1,7 @@
 import {
 	IClassHandler,
 	IHandlerRegistry,
-	ILogger,
+	Logger,
 	IMessage,
 	ISerializer,
 	ITransport,
@@ -31,7 +31,7 @@ export class Bus {
 		private readonly transport: ITransport,
 		private readonly registry: IHandlerRegistry,
 		private readonly serializer: ISerializer,
-		private readonly logger: ILogger,
+		private readonly logger: Logger,
 	) {
 		logger.setContext('Bus');
 

@@ -29,7 +29,13 @@ const config =
 				}),
 			),
 		],
-		external: ['node:events', 'regenerator-runtime', 'pino', 'pino-pretty'],
+		external: [
+			'node:events',
+			'regenerator-runtime',
+			'pino',
+			'pino-pretty',
+			'@carbonteq/hexapp',
+		],
 	};
 
 module.exports = config;

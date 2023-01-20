@@ -1,10 +1,10 @@
-import { ILogger, ITransport } from '@carbonteq/nodebus-core';
+import { Logger, ITransport } from '@carbonteq/nodebus-core';
 import type { Redis } from 'ioredis';
 
 export interface RedisTransportConfig {
 	client: Redis; // ioredis client
 
-	logger: ILogger;
+	logger: Logger;
 
 	queueName?: string;
 }
@@ -13,7 +13,7 @@ export class RedisTransport implements ITransport {
 	static readonly DEFAULT_Q = 'defaultQ';
 
 	private readonly client: Redis;
-	private readonly logger: ILogger;
+	private readonly logger: Logger;
 	readonly queueName: string;
 
 	constructor(cfg: RedisTransportConfig) {

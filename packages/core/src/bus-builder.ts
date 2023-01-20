@@ -4,7 +4,7 @@ import {
 	IMessage,
 	ITransport,
 	ISerializer,
-	ILogger,
+	Logger,
 } from './base';
 import { Bus } from './bus';
 import { DefaultHandlerRegistry } from './default.handler-registry';
@@ -18,7 +18,7 @@ export class BusBuilder {
 
 	private registry: IHandlerRegistry;
 	private serializer: ISerializer;
-	private logger: ILogger;
+	private logger: Logger;
 
 	private constructor() {
 		this.registry = new DefaultHandlerRegistry();
@@ -71,7 +71,7 @@ export class BusBuilder {
 		return this;
 	}
 
-	withLogger(logger: ILogger): this {
+	withLogger(logger: Logger): this {
 		this.logger = logger;
 
 		return this;
