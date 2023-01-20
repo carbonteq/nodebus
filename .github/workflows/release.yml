@@ -21,7 +21,9 @@ jobs:
           node-version: 16.x
 
       - name: Install Dependencies
-        run: yarn
+        run: |
+          yarn install --frozen-lockfile
+          yarn workspace @carbonteq/nodebus-core add -P @carbonteq/hexapp
 
       - name: Build
         run: yarn build

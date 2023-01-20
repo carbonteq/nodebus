@@ -39,7 +39,9 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          yarn install --frozen-lockfile
+          yarn workspace @carbonteq/nodebus-core add -P @carbonteq/hexapp
 
       - name: Build
         run: yarn build
