@@ -1,5 +1,16 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.6.0
+
+### Minor Changes
+
+- 8a45a09: Use hexapp logger interface to maintain consistency
+
+### Patch Changes
+
+- Updated dependencies [8a45a09]
+  - @carbonteq/nodebus-core@0.6.0
+
 ## 0.5.0
 
 ### Minor Changes

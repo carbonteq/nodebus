@@ -1,5 +1,11 @@
 # @nodebus/core
 
+## 0.6.0
+
+### Minor Changes
+
+- 8a45a09: Use hexapp logger interface to maintain consistency
+
 ## 0.5.0
 
 ### Minor Changes
