@@ -26,6 +26,7 @@ export class RedisTransport implements ITransport {
 
 	async initialize(): Promise<void> {
 		const pong = await this.client.ping();
+		console.log(pong);
 
 		this.logger.debug('Redis Transport: Ping => ', pong);
 	}
