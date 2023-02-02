@@ -12,7 +12,7 @@ import { sleep, TestEvent, TestEventHandler } from './common';
 const evnt = new TestEvent('integration testing');
 describe('Bus Tests', () => {
 	describe('correct config', () => {
-		let bus: Bus;
+		let bus: Bus<string>;
 		let transport: InMemoryTransport;
 		let serializer: ISerializer;
 		const goodHandler = new TestEventHandler();

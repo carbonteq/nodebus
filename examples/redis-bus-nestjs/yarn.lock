@@ -79,7 +79,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@carbonteq/nodebus-core@*", "@carbonteq/nodebus-core@^0.3.4":
+"@carbonteq/nodebus-core@*":
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-core/-/nodebus-core-0.3.4.tgz#a7a17b57f503d7fd05096d1766dbc89046798834"
   integrity sha512-kCegRnMnBC4fFo9c2flOrOltji/SL9H/wWVrETzsoGy8IauZOwdOtFmr7RbJ1je7d2z/VxAMYrw524Hcd38hgA==
@@ -88,13 +88,22 @@
     pino-pretty "^9.1.0"
     regenerator-runtime "^0.13.9"
 
-"@carbonteq/nodebus-transport-redis@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-transport-redis/-/nodebus-transport-redis-0.3.2.tgz#b2848fd5b42006d280f50eaa78ca23190107b0a4"
-  integrity sha512-T7KFIqMMkhbJ15O6reDqdzrGKL+eL1kBBAkuPfrqh/UqWdvnQhJZ3YSO3S1fvB/l2HC0HimjnitRCuwCg8Hyww==
+"@carbonteq/nodebus-core@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-core/-/nodebus-core-0.6.0.tgz#ab8eb509bdf1523e7047aedfc582cbc6dff76e13"
+  integrity sha512-HnK/p0KCHqQFpvTGNenSuYIBDan4BP0MeyS5r69NxRkPFq0D+C6mWJZ84CzUzoAIkkIxgjQO0qrGrcA+RfAPlQ==
+  dependencies:
+    pino "^8.8.0"
+    pino-pretty "^9.1.1"
+    regenerator-runtime "^0.13.11"
+
+"@carbonteq/nodebus-transport-redis@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@carbonteq/nodebus-transport-redis/-/nodebus-transport-redis-0.6.0.tgz#3ebc4c4bb0867e85322b0f97c6a8d5c17e93b759"
+  integrity sha512-OMz473ZpRmwb1RLnAuj3K6OPt3TB1gazepWmnDUdK1NFJk8apSKy6UDGon9EBECpNyx6N8iz5V3fFQdYnEb1+A==
   dependencies:
     "@carbonteq/nodebus-core" "*"
-    regenerator-runtime "^0.13.9"
+    regenerator-runtime "^0.13.11"
 
 "@colors/colors@1.5.0":
   version "1.5.0"
@@ -1046,6 +1055,11 @@ fast-copy@^2.1.1:
   resolved "https://registry.yarnpkg.com/fast-copy/-/fast-copy-2.1.3.tgz#bf6e05ac3cb7a9d66fbf12c51dd4440e9ddd4afb"
   integrity sha512-LDzYKNTHhD+XOp8wGMuCkY4eTxFZOOycmpwLBiuF3r3OjOmZnURRD8t2dUAbmKuXGbo/MGggwbSjcBdp8QT0+g==
 
+fast-copy@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fast-copy/-/fast-copy-3.0.0.tgz#875ebf33b13948ae012b6e51d33da5e6e7571ab8"
+  integrity sha512-4HzS+9pQ5Yxtv13Lhs1Z1unMXamBdn5nA4bEi1abYpDNSpSp7ODYQ1KPMF6nTatfEzgH6/zPvXKU1zvHiUjWlA==
+
 fast-deep-equal@^3.1.1:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
@@ -1851,6 +1865,26 @@ pino-pretty@^9.1.0:
     sonic-boom "^3.0.0"
     strip-json-comments "^3.1.1"
 
+pino-pretty@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-9.1.1.tgz#e7d64c1db98266ca428ab56567b844ba780cd0e1"
+  integrity sha512-iJrnjgR4FWQIXZkUF48oNgoRI9BpyMhaEmihonHeCnZ6F50ZHAS4YGfGBT/ZVNsPmd+hzkIPGzjKdY08+/yAXw==
+  dependencies:
+    colorette "^2.0.7"
+    dateformat "^4.6.3"
+    fast-copy "^3.0.0"
+    fast-safe-stringify "^2.1.1"
+    help-me "^4.0.1"
+    joycon "^3.1.1"
+    minimist "^1.2.6"
+    on-exit-leak-free "^2.1.0"
+    pino-abstract-transport "^1.0.0"
+    pump "^3.0.0"
+    readable-stream "^4.0.0"
+    secure-json-parse "^2.4.0"
+    sonic-boom "^3.0.0"
+    strip-json-comments "^3.1.1"
+
 pino-std-serializers@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-6.0.0.tgz#4c20928a1bafca122fdc2a7a4a171ca1c5f9c526"
@@ -1860,6 +1894,23 @@ pino@^8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/pino/-/pino-8.4.2.tgz#5de76e81b36e173d74244e0af4543e7ae241dbfd"
   integrity sha512-PlXDeGhJZfAuVay+wtlS02s5j8uisQveZExYdAm9MwwxUQSz9R7Q78XtjM2tTa4sa5KJmygimZjZxXXuHgV6ew==
+  dependencies:
+    atomic-sleep "^1.0.0"
+    fast-redact "^3.1.1"
+    on-exit-leak-free "^2.1.0"
+    pino-abstract-transport v1.0.0
+    pino-std-serializers "^6.0.0"
+    process-warning "^2.0.0"
+    quick-format-unescaped "^4.0.3"
+    real-require "^0.2.0"
+    safe-stable-stringify "^2.3.1"
+    sonic-boom "^3.1.0"
+    thread-stream "^2.0.0"
+
+pino@^8.8.0:
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-8.8.0.tgz#1f0d6695a224aa06afc7ad60f2ccc4772d3b9233"
+  integrity sha512-cF8iGYeu2ODg2gIwgAHcPrtR63ILJz3f7gkogaHC/TXVVXxZgInmNYiIpDYEwgEkxZti2Se6P2W2DxlBIZe6eQ==
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
@@ -2007,6 +2058,11 @@ reflect-metadata@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
+
+regenerator-runtime@^0.13.11:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-runtime@^0.13.9:
   version "0.13.9"

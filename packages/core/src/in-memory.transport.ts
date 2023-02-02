@@ -1,23 +1,30 @@
 import { EventEmitter } from 'node:events';
-import { Logger, ITransport, TransportMessage } from './base';
+import { Logger, ITransport, TransportMessage, DomainMessage } from './base';
 import { PinoLogger } from './pino.logger';
+import { randomUUID } from 'node:crypto';
 
 export interface InMemoryTransportConfig {
-	/* maxRetries?: number; */
 	receiveTimeoutMs: number; // number of seconds to wait while attempting to wait for the next message
 }
 
 const defaultConfig: Readonly<InMemoryTransportConfig> = {
-	/* maxRetries: 10, */
 	receiveTimeoutMs: 1000, // 1 second
 };
 
-// todo: add logger, queue and retry strat
-export class InMemoryTransport implements ITransport {
+type InMemoryTransportMessageType = string;
+export type InMemoryTransportMessage =
+	TransportMessage<InMemoryTransportMessageType>;
+
+// todo: add retry strat and better queue impl
+export class InMemoryTransport
+	implements ITransport<InMemoryTransportMessageType>
+{
 	private readonly logger: Logger;
 	private readonly cfg: InMemoryTransportConfig;
 
-	private queue: TransportMessage[] = [];
+	static readonly QUEUE_REENTRY_DELAY_MS = 2000;
+
+	private queue: InMemoryTransportMessage[] = [];
 	private queuePushed: EventEmitter = new EventEmitter();
 	/* private _deadLetterQueue: InMemoryQueue = []; */
 
@@ -32,11 +39,11 @@ export class InMemoryTransport implements ITransport {
 		// connect to underlying transport here
 	}
 
-	async send(message: TransportMessage): Promise<void> {
-		this.addToQueue(message);
+	async send(domainMessage: string): Promise<void> {
+		this.addToQueue(domainMessage);
 	}
 
-	readNextMessage(): Promise<TransportMessage | undefined> {
+	readNextMessage(): Promise<InMemoryTransportMessage | undefined> {
 		// this.logger.debug('Reading next message', { len: this.length });
 
 		return new Promise((resolve) => {
@@ -77,7 +84,7 @@ export class InMemoryTransport implements ITransport {
 		});
 	}
 
-	async deleteMessage(message: TransportMessage): Promise<void> {
+	async deleteMessage(message: InMemoryTransportMessage): Promise<void> {
 		this.logger.debug('No need to delete message from in-memory queue', {
 			message,
 		});
@@ -93,21 +100,29 @@ export class InMemoryTransport implements ITransport {
 		// this.logger.debug('Deleted message', { len: this.length, msgIdx });
 	}
 
-	async returnMessage(message: TransportMessage): Promise<void> {
+	async returnMessage(message: InMemoryTransportMessage): Promise<void> {
 		// todo: replace with retry strategy
-		const delay = 2000; // ms
 
 		setTimeout(() => {
 			this.queue.push(message);
-		}, delay);
+		}, InMemoryTransport.QUEUE_REENTRY_DELAY_MS);
 	}
 
-	private addToQueue(message: TransportMessage) {
-		this.queue.push(message);
+	toTransportMessage(domainMessage: DomainMessage): InMemoryTransportMessage {
+		return {
+			id: randomUUID(),
+			domainMessage,
+			raw: domainMessage,
+		};
+	}
+
+	private addToQueue(message: DomainMessage) {
+		const transportMsg = this.toTransportMessage(message);
+		this.queue.push(transportMsg);
 
 		this.logger.debug('Added message to the queue', {
 			queueSize: this.length,
-			message,
+			transportMsg,
 		});
 	}
 

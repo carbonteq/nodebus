@@ -1,14 +1,12 @@
-/* warn: this may case issue as rollup treats absoule paths as internal */
-/* can maybe use https://github.com/dot-build/rollup-plugin-includepaths to remedy this */
-import { IHandlerRegistry, IClassHandler, IMessage } from 'src/base';
+import type { IHandlerRegistry, IClassHandler, IMessage } from './base';
 
 export class DefaultHandlerRegistry implements IHandlerRegistry {
 	private listenerMap: Map<string, Set<IClassHandler<IMessage>>> = new Map();
 
 	register<T extends IMessage>(handler: IClassHandler<T>): void {
-		const eventType = handler.eventType;
+		const messageType = handler._type;
 
-		const event = new eventType();
+		const event = new messageType();
 		const eventName = event.name;
 
 		if (this.listenerMap.has(eventName)) {

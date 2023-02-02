@@ -1,14 +1,15 @@
-import { IMessage } from './message';
-import { ClassConstructor } from './type-utils';
+import type { IMessage } from './message';
+import type { ClassConstructor } from './type-utils';
+import type { DomainMessage } from './transport-message';
 
 export type BaseSerializable = Record<string, any>;
 
 export interface ISerializer {
-	serialize<T extends BaseSerializable>(obj: T): string;
+	serialize<T extends BaseSerializable>(obj: T): DomainMessage;
 
-	naiveDeserialize(val: string): Record<string, unknown>;
+	naiveDeserialize(val: DomainMessage): Record<string, unknown>;
 	deserialize<T extends IMessage>(
-		val: string,
+		val: DomainMessage,
 		classType: ClassConstructor<T>,
 	): T;
 

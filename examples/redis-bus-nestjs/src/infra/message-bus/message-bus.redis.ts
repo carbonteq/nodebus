@@ -1,11 +1,11 @@
-import { Bus, BusBuilder, PinoLogger } from "@carbonteq/nodebus-core";
-import { Provider } from "@nestjs/common";
-import { FooEventHandler } from "@src/app/handlers/foo.handler";
-import Redis from "ioredis";
+import { Bus, BusBuilder, PinoLogger } from '@carbonteq/nodebus-core';
+import { Provider } from '@nestjs/common';
+import { FooEventHandler } from '@src/app/handlers/foo.handler';
+import Redis from 'ioredis';
 import {
   RedisTransport,
   RedisTransportConfig,
-} from "@carbonteq/nodebus-transport-redis";
+} from '@carbonteq/nodebus-transport-redis';
 
 export const RedisBusProvider: Provider<Bus> = {
   provide: Bus,
@@ -16,7 +16,7 @@ export const RedisBusProvider: Provider<Bus> = {
     const cfg: RedisTransportConfig = {
       client: redisClient,
       logger: pinoLogger,
-      queueName: "randomName", // optional, RedisTransport.DEFAULT_Q by default
+      queueName: 'randomName', // optional, RedisTransport.DEFAULT_Q by default
     };
 
     const redisTransport = new RedisTransport(cfg);

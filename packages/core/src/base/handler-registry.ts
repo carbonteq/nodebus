@@ -1,5 +1,5 @@
-import { IClassHandler } from './class-handler';
-import { IMessage } from './message';
+import type { IClassHandler } from './class-handler';
+import type { IMessage } from './message';
 
 export interface IHandlerRegistry {
 	register<T extends IMessage>(handler: IClassHandler<T>): void;

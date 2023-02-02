@@ -35,6 +35,7 @@ const config =
 			'pino',
 			'pino-pretty',
 			'@carbonteq/hexapp',
+			'node:crypto',
 		],
 	};
 

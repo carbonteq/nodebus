@@ -1,8 +1,9 @@
 import {
 	RedisTransport,
 	RedisTransportConfig,
+	RedisTransportMessage,
 } from '@carbonteq/nodebus-transport-redis';
-import { ILogger, PinoLogger } from '@carbonteq/nodebus-core';
+import { Logger, PinoLogger } from '@carbonteq/nodebus-core';
 import Redis from 'ioredis';
 
 jest.mock('ioredis', () => require('ioredis-mock'));
@@ -10,7 +11,7 @@ jest.mock('ioredis', () => require('ioredis-mock'));
 describe('Redis Transport', () => {
 	const client = new Redis();
 
-	const logger: ILogger = new PinoLogger();
+	const logger: Logger = new PinoLogger();
 
 	const cfg: RedisTransportConfig = {
 		client,
@@ -60,7 +61,7 @@ describe('Redis Transport', () => {
 
 		const nextMsg = await transport.readNextMessage();
 
-		expect(nextMsg).toBe(msg);
+		expect(nextMsg?.domainMessage).toBe(msg);
 	});
 
 	it('readNextMessage returns undefined when no message in queue', async () => {
@@ -76,15 +77,19 @@ describe('Redis Transport', () => {
 		await transport.send(msg1);
 		await transport.send(msg2);
 
-		expect(await transport.readNextMessage()).toBe(msg1);
-		expect(await transport.readNextMessage()).toBe(msg2);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg1);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg2);
 	});
 
 	it('msg is deleted without error when no message in queue', async () => {
 		expect(await transport.readNextMessage()).toBeUndefined();
 
 		expect(async () => {
-			await transport.deleteMessage('radasdad');
+			await transport.deleteMessage({
+				id: '',
+				domainMessage: 'radasdad',
+				raw: 'asdadw',
+			});
 		}).not.toThrow();
 
 		expect(await transport.readNextMessage()).toBeUndefined();
@@ -96,8 +101,9 @@ describe('Redis Transport', () => {
 		await transport.send(msg);
 
 		expect(await transport.length()).toBe(1);
+		const transportMsg = transport.toTransportMessage(msg);
 
-		await transport.deleteMessage(msg);
+		await transport.deleteMessage(transportMsg);
 
 		expect(await transport.length()).toBe(0);
 		expect(await transport.readNextMessage()).toBeUndefined();
@@ -114,10 +120,10 @@ describe('Redis Transport', () => {
 
 		expect(await transport.length()).toBe(3);
 
-		await transport.deleteMessage(msg2);
+		await transport.deleteMessage(transport.toTransportMessage(msg2));
 
-		expect(await transport.readNextMessage()).toBe(msg1);
-		expect(await transport.readNextMessage()).toBe(msg3);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg1);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg3);
 	});
 
 	it('returnMessage returns message to queue', async () => {
@@ -127,12 +133,13 @@ describe('Redis Transport', () => {
 		await transport.send(msg1);
 		await transport.send(msg2);
 
-		expect(await transport.readNextMessage()).toBe(msg1);
+		const read = await transport.readNextMessage();
+		expect(read?.domainMessage).toBe(msg1);
 
-		await transport.returnMessage(msg1);
+		await transport.returnMessage(read as RedisTransportMessage);
 
-		expect(await transport.readNextMessage()).toBe(msg2);
-		expect(await transport.readNextMessage()).toBe(msg1);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg2);
+		expect((await transport.readNextMessage())?.domainMessage).toBe(msg1);
 	});
 
 	it('transport with the same queue name uses the same underlying redis list', async () => {

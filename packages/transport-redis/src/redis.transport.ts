@@ -1,5 +1,11 @@
-import { Logger, ITransport } from '@carbonteq/nodebus-core';
+import {
+	Logger,
+	ITransport,
+	TransportMessage,
+	DomainMessage,
+} from '@carbonteq/nodebus-core';
 import type { Redis } from 'ioredis';
+import { randomUUID } from 'node:crypto';
 
 export interface RedisTransportConfig {
 	client: Redis; // ioredis client
@@ -9,7 +15,10 @@ export interface RedisTransportConfig {
 	queueName?: string;
 }
 
-export class RedisTransport implements ITransport {
+export type RedisMessageType = string;
+export type RedisTransportMessage = TransportMessage<RedisMessageType>;
+
+export class RedisTransport implements ITransport<RedisMessageType> {
 	static readonly DEFAULT_Q = 'defaultQ';
 
 	private readonly client: Redis;
@@ -26,28 +35,44 @@ export class RedisTransport implements ITransport {
 
 	async initialize(): Promise<void> {
 		const pong = await this.client.ping();
+		console.log(pong);
 
 		this.logger.debug('Redis Transport: Ping => ', pong);
 	}
 
-	async send(message: string): Promise<void> {
-		await this.client.lpush(this.queueName, message);
+	private async addToQ(val: RedisMessageType): Promise<void> {
+		await this.client.lpush(this.queueName, val);
 	}
 
-	async readNextMessage(): Promise<string | undefined> {
+	async send(message: DomainMessage): Promise<void> {
+		await this.addToQ(message);
+	}
+
+	async readNextMessage(): Promise<RedisTransportMessage | undefined> {
 		const val = await this.client.rpop(this.queueName);
 
 		if (val !== null) {
-			return val;
+			const transportMsg = this.toTransportMessage(val);
+
+			return transportMsg;
+			// return JSON.parse(val);
 		}
 	}
 
-	async deleteMessage(message: string): Promise<void> {
-		await this.client.lrem(this.queueName, 1, message);
+	async deleteMessage(message: RedisTransportMessage): Promise<void> {
+		await this.client.lrem(this.queueName, 1, message.raw);
 	}
 
-	async returnMessage(message: string): Promise<void> {
-		await this.send(message);
+	async returnMessage(message: RedisTransportMessage): Promise<void> {
+		await this.addToQ(message.raw);
+	}
+
+	toTransportMessage(domainMessage: DomainMessage): RedisTransportMessage {
+		return {
+			id: randomUUID(),
+			raw: domainMessage,
+			domainMessage,
+		};
 	}
 
 	async length(): Promise<number> {
