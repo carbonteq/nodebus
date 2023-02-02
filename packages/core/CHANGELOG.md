@@ -1,5 +1,12 @@
 # @nodebus/core
 
+## 0.7.0
+
+### Minor Changes
+
+- c77f014: Add transport message interface (separate from domain message)
+- 38242ae: Update transport-redis to use updated transport message interface
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @carbonteq/nodebus-transport-redis
 
+## 0.7.0
+
+### Minor Changes
+
+- 38242ae: Update transport-redis to use updated transport message interface
+
+### Patch Changes
+
+- Updated dependencies [c77f014]
+- Updated dependencies [38242ae]
+  - @carbonteq/nodebus-core@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes
