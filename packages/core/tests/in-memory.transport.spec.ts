@@ -1,6 +1,7 @@
 import {
 	InMemoryTransport,
 	DefaultHandlerRegistry,
+	DomainMessage,
 } from '@carbonteq/nodebus-core';
 import {
 	TestEvent,
@@ -10,8 +11,10 @@ import {
 } from './common';
 
 const evnt = new TestEvent('some id');
+const domainEvnt: DomainMessage = JSON.stringify(evnt);
 
 const cmd = new BarCommand('bar cmd');
+const domainCmd: DomainMessage = JSON.stringify(cmd);
 
 const testHandler = new TestEventHandler();
 const cmdHandler = new BarCommandHandler();
@@ -30,7 +33,7 @@ describe('in-memory transport', () => {
 	});
 
 	it('sending an event with handler adds it to queue', async () => {
-		transport.send(evnt);
+		transport.send(domainEvnt);
 
 		expect(transport.length).toBe(1);
 	});
@@ -42,24 +45,24 @@ describe('in-memory transport', () => {
 	});
 
 	it('readNextMessage returns a defined transport message after send', async () => {
-		transport.send(evnt);
+		transport.send(domainEvnt);
 
 		/* await sleep(transport.cfg.receiveTimeoutMs); */
 		const nextMsg = await transport.readNextMessage();
 
 		expect(nextMsg).toBeDefined();
-		expect(nextMsg).toEqual(evnt);
+		expect(nextMsg?.domainMessage).toEqual(domainEvnt);
 	});
 
 	it('should return oldest message when multiple in queue', async () => {
-		await transport.send(cmd);
-		await transport.send(evnt);
+		await transport.send(domainCmd);
+		await transport.send(domainEvnt);
 
 		const firstMsg = await transport.readNextMessage();
-		expect(firstMsg).toEqual(cmd);
+		expect(firstMsg?.domainMessage).toEqual(domainCmd);
 
 		const secondMessage = await transport.readNextMessage();
-		expect(secondMessage).toEqual(evnt);
+		expect(secondMessage?.domainMessage).toEqual(domainEvnt);
 	});
 
 	// it('should retain queue length while messafe is unacknowledged', async () => {

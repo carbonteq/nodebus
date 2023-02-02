@@ -1,9 +1,8 @@
-import { ClassConstructor } from './type-utils';
-import { IMessage } from './message';
+import type { ClassConstructor } from './type-utils';
+import type { IMessage } from './message';
 
 export interface IClassHandler<T extends IMessage> {
-	// warn: should change this to message type, or just _type
-	eventType: ClassConstructor<T>;
+	_type: ClassConstructor<T>;
 
-	handle(event: T): void;
+	handle(message: T): void;
 }

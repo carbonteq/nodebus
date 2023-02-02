@@ -12,9 +12,9 @@ import { InMemoryTransport } from './in-memory.transport';
 import { JSONSerializer } from './json.serializer';
 import { PinoLogger } from './pino.logger';
 
-export class BusBuilder {
-	private transport?: ITransport;
-	private busInstance?: Bus;
+export class BusBuilder<TransportMessageType> {
+	private transport?: ITransport<TransportMessageType>;
+	private busInstance?: Bus<TransportMessageType>;
 
 	private registry: IHandlerRegistry;
 	private serializer: ISerializer;
@@ -26,12 +26,12 @@ export class BusBuilder {
 		this.logger = new PinoLogger('Bus');
 	}
 
-	static configure(): BusBuilder {
+	static configure<T>(): BusBuilder<T> {
 		return new BusBuilder();
 	}
 
 	// todo: make transport initialize optional
-	async initialize(): Promise<Bus> {
+	async initialize(): Promise<Bus<TransportMessageType>> {
 		this.verifyNotAlreadyInitialized();
 
 		const transport = this.transport ?? new InMemoryTransport();
@@ -39,7 +39,7 @@ export class BusBuilder {
 		await transport.initialize(this.registry);
 
 		this.busInstance = new Bus(
-			transport,
+			transport as ITransport<TransportMessageType>,
 			this.registry,
 			this.serializer,
 			this.logger,
@@ -57,7 +57,7 @@ export class BusBuilder {
 		return this;
 	}
 
-	withTransport(transport: ITransport): this {
+	withTransport(transport: ITransport<TransportMessageType>): this {
 		this.verifyNotAlreadyInitialized();
 
 		this.transport = transport;

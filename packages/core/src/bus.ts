@@ -21,14 +21,14 @@ const sleep = async (timeoutMs: number): Promise<void> =>
 const STARTED_STATES = new Set([BusState.Starting, BusState.Started]);
 const STOP_STATES = new Set([BusState.Stopping, BusState.Stopped]);
 
-export class Bus {
+export class Bus<TransportMessageType> {
 	private runningWorkerCount = 0;
 	private internalState: BusState = BusState.Stopped;
 
 	static readonly EMPTY_QUEUE_SLEEP_MS = 500;
 
 	constructor(
-		private readonly transport: ITransport,
+		private readonly transport: ITransport<TransportMessageType>,
 		private readonly registry: IHandlerRegistry,
 		private readonly serializer: ISerializer,
 		private readonly logger: Logger,
@@ -142,8 +142,10 @@ export class Bus {
 		return handler.handle(msg);
 	}
 
-	private async handleNextMessagePolled(msg: TransportMessage): Promise<void> {
-		const naiveParsed = this.serializer.naiveDeserialize(msg);
+	private async handleNextMessagePolled(
+		msg: TransportMessage<TransportMessageType>,
+	): Promise<void> {
+		const naiveParsed = this.serializer.naiveDeserialize(msg.domainMessage);
 		if (!this.verifyIsValidMessage(naiveParsed)) {
 			this.logger.debug('Invalid message', msg);
 			return;
@@ -158,8 +160,8 @@ export class Bus {
 		}
 
 		const msgDeserialized = this.serializer.deserialize(
-			msg,
-			handlers[0].eventType,
+			msg.domainMessage,
+			handlers[0]._type,
 		);
 
 		// todo: maybe do the following two concurrently

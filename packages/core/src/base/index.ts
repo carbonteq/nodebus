@@ -5,3 +5,4 @@ export * from './class-handler';
 export * from './serializer';
 export * from './transport';
 export * from './logger';
+export * from './transport-message';
