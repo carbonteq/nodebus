@@ -29,7 +29,7 @@ const config =
 				}),
 			),
 		],
-		external: ['regenerator-runtime', '@carbonteq/nodebus-core'],
+		external: ['regenerator-runtime', '@carbonteq/nodebus-core', 'node:crypto'],
 	};
 
 module.exports = config;
