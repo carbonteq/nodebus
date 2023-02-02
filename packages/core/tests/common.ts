@@ -32,7 +32,7 @@ export const getErronousHandler = <T extends IMessage>(
 		_type = msgType;
 		timesFailed = 0;
 
-		constructor(readonly timesToFail: number) { }
+		constructor(readonly timesToFail: number) {}
 
 		handle(event: T): void {
 			if (this.timesFailed++ < this.timesToFail) {

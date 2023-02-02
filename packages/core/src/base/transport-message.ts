@@ -1,15 +1,15 @@
 export type DomainMessage = string;
 
 export interface TransportMessage<AdapterMessageType> {
-  /**
-   * Message ID
-   */
-  id: string;
+	/**
+	 * Message ID
+	 */
+	id: string;
 
-  domainMessage: DomainMessage;
+	domainMessage: DomainMessage;
 
-  /**
-   * raw message as received from the transport
-   */
-  raw: AdapterMessageType;
+	/**
+	 * raw message as received from the transport
+	 */
+	raw: AdapterMessageType;
 }
