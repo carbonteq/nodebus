@@ -38,7 +38,7 @@
     "format:dry": "rome format src tests",
     "format": "rome format src tests --write",
     "test": "jest --verbose",
-    "tcc": "tsc --pretty --noEmit --project tsconfig.build.json",
+    "tc": "tsc --pretty --noEmit --project tsconfig.build.json",
     "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.js",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationMap --project tsconfig.build.json",
