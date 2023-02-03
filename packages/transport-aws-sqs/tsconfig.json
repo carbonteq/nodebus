@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "tsconfig/nodebus.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@carbonteq/nodebus-transport-aws-sqs": ["./lib"]
+    }
+  },
+  "include": ["src/**/*.ts", "tests/**.*.ts", "rollup.config.ts"]
+}
